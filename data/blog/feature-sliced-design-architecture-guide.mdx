@@ -1,0 +1,191 @@
+---
+title: 'Feature-Sliced Design: The best frontend architecture'
+date: '2025-01-21'
+tags: ['architecture', 'frontend', 'react', 'fsd', 'design-patterns']
+draft: false
+summary: 'Tìm hiểu về Feature-Sliced Design (FSD), một phương pháp kiến trúc frontend giúp tổ chức code một cách có hệ thống, ổn định và dễ bảo trì cho các dự án frontend lớn.'
+authors: ['default']
+layout: 'PostLayout'
+---
+
+## Giới thiệu về Feature-Sliced Design
+
+Feature-Sliced Design (FSD) là một phương pháp luận kiến trúc để xây dựng các ứng dụng frontend. Đơn giản hóa, đây là một tập hợp các quy tắc và quy ước về việc tổ chức code. Mục đích chính của phương pháp này là làm cho dự án trở nên dễ hiểu và ổn định hơn trước những yêu cầu kinh doanh luôn thay đổi.
+
+Ngoài việc là một tập hợp các quy ước, FSD còn cung cấp một bộ công cụ hoàn chỉnh, bao gồm linter để kiểm tra kiến trúc dự án, các công cụ CLI để tạo folder, cũng như một thư viện phong phú các ví dụ thực tế.
+
+## FSD có phù hợp với dự án của bạn không?
+
+FSD có thể được triển khai trong các dự án và team với mọi quy mô. Nó phù hợp với dự án của bạn nếu:
+
+- Bạn đang phát triển frontend (UI trên web, mobile, desktop, v.v.)
+- Bạn đang xây dựng một ứng dụng, không phải thư viện
+
+Chỉ vậy thôi! Không có bất kỳ hạn chế nào về ngôn ngữ lập trình, UI framework, hay state manager mà bạn sử dụng. Bạn cũng có thể áp dụng FSD từng bước, sử dụng trong monorepo, và mở rộng quy mô lớn bằng cách chia ứng dụng thành các package và triển khai FSD riêng biệt trong từng package.
+
+## Ví dụ cơ bản
+
+Đây là một dự án đơn giản triển khai FSD:
+
+```
+📁 app
+📁 pages
+📁 shared
+```
+
+Những folder cấp cao này được gọi là **layers** (lớp). Hãy xem sâu hơn:
+
+```
+📂 app
+  📁 routes
+  📁 analytics
+📂 pages
+  📁 home
+  📂 article-reader
+    📁 ui
+    📁 api
+  📁 settings
+📂 shared
+  📁 ui
+  📁 api
+```
+
+Các folder bên trong `📂 pages` được gọi là **slices** (slice). Chúng chia layer theo domain nghiệp vụ (trong trường hợp này, theo pages).
+
+Các folder bên trong `📂 app`, `📂 shared`, và `📂 pages/article-reader` được gọi là **segments**, và chúng chia slices (hoặc layers) theo mục đích kỹ thuật, tức là code dùng để làm gì.
+
+![FSD architecture](/static/images/fsd-architecture.png)
+
+## Các khái niệm cốt lõi
+
+### Layers (Lớp)
+
+Layers được chuẩn hóa trong tất cả các dự án FSD. Bạn không cần phải sử dụng tất cả các layers, nhưng tên của chúng là quan trọng. Hiện tại có 7 layers (từ trên xuống dưới):
+
+1. **App** — mọi thứ làm cho ứng dụng chạy được: routing, entrypoints, global styles, providers
+2. **Processes** (deprecated) — các kịch bản phức tạp liên trang
+3. **Pages** — các trang đầy đủ hoặc các phần lớn của trang trong nested routing
+4. **Widgets** — các khối chức năng hoặc UI lớn, độc lập, thường cung cấp toàn bộ use case
+5. **Features** — các triển khai có thể tái sử dụng của toàn bộ tính năng sản phẩm, tức các hành động mang lại giá trị kinh doanh cho người dùng
+6. **Entities** — các thực thể kinh doanh mà dự án làm việc với, như user hoặc product
+7. **Shared** — chức năng có thể tái sử dụng, đặc biệt khi tách biệt khỏi đặc thù của dự án/kinh doanh
+
+> **Lưu ý quan trọng:** Layers App và Shared, khác với các layers khác, không có slices và được chia trực tiếp thành segments.
+
+**Quy tắc import giữa các layers:** Các module trên một layer chỉ có thể biết về và import từ các module từ các layers **strictly below** (nghiêm ngặt bên dưới).
+
+### Slices (Slice)
+
+Slices phân chia code theo business domain. Bạn có thể tự do chọn bất kỳ tên nào cho chúng và tạo bao nhiêu tùy thích. Slices giúp codebase dễ điều hướng bằng cách giữ các module có liên quan logic gần nhau.
+
+**Quy tắc quan trọng:** Slices không thể sử dụng các slices khác trên cùng layer, điều này giúp đảm bảo high cohesion và low coupling.
+
+### Segments (Phân đoạn)
+
+Slices, cũng như layers App và Shared, bao gồm các segments. Segments nhóm code theo mục đích sử dụng. Tên segment không bị ràng buộc bởi tiêu chuẩn, nhưng có một số tên quy ước cho các mục đích phổ biến:
+
+- **ui** — mọi thứ liên quan đến hiển thị UI: UI components, date formatters, styles, v.v.
+- **api** — tương tác với backend: request functions, data types, mappers, v.v.
+- **model** — data model: schemas, interfaces, stores, và business logic
+- **lib** — library code mà các module khác trên slice này cần
+- **config** — configuration files và feature flags
+
+Thường thì những segments này đủ cho hầu hết các layers, bạn chỉ tạo segments riêng trong Shared hoặc App.
+
+## Lợi ích của FSD
+
+### 1. Tính đồng nhất (Uniformity)
+
+Vì cấu trúc được chuẩn hóa, các dự án trở nên đồng nhất hơn, giúp việc onboarding thành viên mới dễ dàng hơn cho team.
+
+### 2. Ổn định trước sự thay đổi và refactoring
+
+- Module trên một layer không thể sử dụng module khác trên cùng layer, hoặc các layers ở trên
+- Điều này cho phép bạn thực hiện các sửa đổi độc lập mà không có hậu quả không lường trước cho phần còn lại của ứng dụng
+
+### 3. Kiểm soát việc tái sử dụng logic
+
+Tùy thuộc vào layer, bạn có thể làm cho code rất có thể tái sử dụng hoặc rất cục bộ. Điều này duy trì sự cân bằng giữa việc tuân theo nguyên tắc DRY và tính thực tế.
+
+### 4. Định hướng theo nhu cầu kinh doanh và người dùng
+
+Ứng dụng được chia theo business domains và việc sử dụng ngôn ngữ kinh doanh được khuyến khích trong việc đặt tên, để bạn có thể làm công việc sản phẩm hữu ích mà không cần hiểu đầy đủ tất cả các phần không liên quan khác của dự án.
+
+## Chi tiết từng Layer
+
+### Shared Layer
+
+Tạo nền tảng cho phần còn lại của ứng dụng. Đây là nơi tạo kết nối với thế giới bên ngoài (backends, third-party libraries, environment) và định nghĩa các thư viện có tính chứa đựng cao.
+
+Các segments phổ biến:
+
+- `📁 api` — API client và các functions để tạo requests đến backend endpoints cụ thể
+- `📁 ui` — UI kit của ứng dụng
+- `📁 lib` — tập hợp các thư viện nội bộ
+- `📁 config` — environment variables, global feature flags
+- `📁 routes` — route constants hoặc patterns để match routes
+
+### Entities Layer
+
+Các slices trên layer này đại diện cho các khái niệm từ thế giới thực mà dự án đang làm việc với. Thường thì đây là các thuật ngữ mà kinh doanh sử dụng để mô tả sản phẩm. Ví dụ: User, Post, Group.
+
+Entity slice có thể chứa:
+
+- Data storage (`📁 model`)
+- Data validation schemas (`📁 model`)
+- Entity-related API request functions (`📁 api`)
+- Visual representation (`📁 ui`)
+
+### Features Layer
+
+Layer này dành cho các tương tác chính trong ứng dụng, những thứ mà người dùng quan tâm thực hiện. Các tương tác này thường liên quan đến business entities.
+
+**Nguyên tắc quan trọng:** Không phải mọi thứ đều cần là feature. Chỉ nên tạo feature khi nó được tái sử dụng trên nhiều trang.
+
+### Widgets Layer
+
+Dành cho các khối UI lớn, tự cung cấp đầy đủ. Widgets hữu ích nhất khi được tái sử dụng trên nhiều trang, hoặc khi trang chứa chúng có nhiều khối độc lập lớn.
+
+### Pages Layer
+
+Pages tạo nên websites và applications. Một page thường tương ứng với một slice, tuy nhiên nếu có nhiều pages rất giống nhau, chúng có thể được nhóm vào một slice.
+
+### App Layer
+
+Tất cả các vấn đề app-wide, cả về mặt kỹ thuật (context providers) và kinh doanh (analytics).
+
+Các segments phổ biến:
+
+- `📁 routes` — cấu hình router
+- `📁 store` — cấu hình global store
+- `📁 styles` — global styles
+- `📁 entrypoint` — entrypoint đến application code
+
+## Chiến lược áp dụng từng bước
+
+Nếu bạn có một codebase hiện tại muốn migrate sang FSD:
+
+1. **Bắt đầu từ từ** bằng cách định hình App và Shared layers từng module để tạo nền tảng
+
+2. **Phân phối tất cả UI hiện tại** qua Widgets và Pages bằng nét vẽ rộng, ngay cả khi chúng có dependencies vi phạm quy tắc FSD
+
+3. **Bắt đầu từ từ giải quyết** các import violations và cũng trích xuất Entities và có thể cả Features
+
+4. **Tránh thêm entities lớn mới** trong khi refactoring hoặc chỉ refactor một số phần của dự án
+
+## Kết luận
+
+Feature-Sliced Design cung cấp một cách tiếp cận có hệ thống để tổ chức code frontend, giúp:
+
+- Dự án dễ hiểu và điều hướng hơn
+- Ổn định trước các thay đổi yêu cầu kinh doanh
+- Team mới có thể onboard nhanh chóng
+- Code có thể tái sử dụng được kiểm soát tốt
+
+FSD không chỉ là một phương pháp lý thuyết mà còn đi kèm với các công cụ thực tế, giúp bạn triển khai và duy trì kiến trúc này một cách hiệu quả trong dự án thực tế.
+
+Tạm vậy. Sẽ viết tiếp sau.
+
+```
+
+```
