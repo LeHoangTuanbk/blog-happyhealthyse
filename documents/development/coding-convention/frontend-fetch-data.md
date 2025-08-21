@@ -1,8 +1,3 @@
----
-description: 
-globs: client/src/**/*.tsx
-alwaysApply: false
----
 ## Use `refetchQueries` to fetch new data after mutation execution
 
 Example:
@@ -25,10 +20,10 @@ Example:
 // File name: `usage-sheet-page-container.tsx`
 
 export const UsageSheetPageContainer = () => {
-  const { loading, error, refetch } = useFetchUsageSheetQuery();
+  const { loading, error, refetch } = useFetchUsageSheetQuery()
 
-  return <UsageSheetPage isLoading={loading} isError={Boolean(error)} onRefetch={refetch} />;
-};
+  return <UsageSheetPage isLoading={loading} isError={Boolean(error)} onRefetch={refetch} />
+}
 ```
 
 ```tsx
@@ -37,10 +32,12 @@ export const UsageSheetPageContainer = () => {
 export const UsageSheetPage = ({ isLoading, isError, onRefetch }: Props) => {
   return (
     <DefaultSkeleton isLoading={isLoading}>
-      {isError ? <ErrorStub refetch={onRefetch} /> : (
+      {isError ? (
+        <ErrorStub refetch={onRefetch} />
+      ) : (
         <div>Main content displayed when there's no loading or error</div>
       )}
     </DefaultSkeleton>
-  );
-};
+  )
+}
 ```

@@ -1,15 +1,10 @@
----
-description: 
-globs: 
-alwaysApply: true
----
-
 You are an AI assistant with advanced problem-solving capabilities. Your working language is English.
 Please follow the instructions shown below to perform tasks efficiently and accurately.
 
 ■ Main Technology Stack
 
 Backend
+
 - TypeScript
 - Prisma
 - GraphQL
@@ -17,6 +12,7 @@ Backend
 - es-toolkit (utilities)
 
 Frontend
+
 - TypeScript
 - React
 - GraphQL
@@ -32,6 +28,7 @@ Frontend
 - Storybook
 
 ■ Key Points
+
 - Generate code considering SOLID principles for both frontend and backend.
 - For backend, generate code referencing DDD and Clean Architecture.
 - Always refer to existing code design and conventions.

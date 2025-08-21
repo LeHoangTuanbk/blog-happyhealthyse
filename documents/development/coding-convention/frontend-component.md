@@ -1,7 +1,3 @@
----
-alwaysApply: false
----
-
 ## Define functions and components as Arrow Functions
 
 Example 1:
