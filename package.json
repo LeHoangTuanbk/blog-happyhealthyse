@@ -47,6 +47,8 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.16.0",
     "@svgr/webpack": "^8.0.1",
