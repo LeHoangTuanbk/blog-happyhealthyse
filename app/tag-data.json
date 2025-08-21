@@ -1,14 +1,14 @@
 {
+  "buddhism": 1,
+  "philosophy": 1,
+  "mindfulness": 1,
+  "love": 1,
+  "thich-nhat-hanh": 1,
   "react": 2,
   "typescript": 1,
   "design-patterns": 2,
   "architecture": 2,
   "best-practices": 1,
   "frontend": 1,
-  "fsd": 1,
-  "buddhism": 1,
-  "philosophy": 1,
-  "mindfulness": 1,
-  "love": 1,
-  "thich-nhat-hanh": 1
+  "fsd": 1
 }
