@@ -2,31 +2,47 @@ import { genPageMetadata } from 'app/seo'
 
 export const metadata = genPageMetadata({ title: 'List 100' })
 
+const MyThingStatus = {
+  NotDone: '✓',
+  InProgress: '~',
+  Done: '✗',
+} as const
+
+type MyThingStatus = (typeof MyThingStatus)[keyof typeof MyThingStatus]
+
 type MyThing = {
   title: string
-  status: '✓' | '✗' | '~'
+  status: MyThingStatus
 }
 
 const list100: MyThing[] = [
-  { title: 'Learn Chinese', status: '✗' },
-  { title: 'Reach advanced proficiency in English', status: '~' },
-  { title: "Live in another country – I'm currently living in Japan", status: '✓' },
   {
     title: 'Visit Utah, Idaho, and Arizona, and reconnect with old friends in the US',
-    status: '✗',
+    status: MyThingStatus.NotDone,
   },
-  { title: 'Run a full marathon', status: '✗' },
-  { title: 'Travel to 50 countries', status: '✗' },
-  { title: 'Get married and have at least two children', status: '✗' },
-  { title: 'Earn a Master of Business Administration (MBA)', status: '✗' },
-  { title: 'Earn a Master of Science (MSc)', status: '✗' },
+  {
+    title: 'Spend a whole week doing nothing but eating, sleeping, and studying the Scriptures.',
+    status: MyThingStatus.NotDone,
+  },
+  { title: 'Reach advanced proficiency in English', status: MyThingStatus.InProgress },
+  { title: 'Learn Chinese', status: MyThingStatus.NotDone },
+  { title: "Live in another country – I'm currently living in Japan", status: MyThingStatus.Done },
+
+  { title: 'Run a full marathon', status: MyThingStatus.NotDone },
+  { title: 'Travel to 50 countries', status: MyThingStatus.NotDone },
+  { title: 'Get married and have at least two children', status: MyThingStatus.NotDone },
+  { title: 'Earn a Master of Business Administration (MBA)', status: MyThingStatus.NotDone },
+  { title: 'Earn a Master of Science (MSc)', status: MyThingStatus.NotDone },
   { title: 'Launch my own software product used by over a million users', status: '✗' },
-  { title: 'Earn a PhD', status: '✗' },
-  { title: 'Be awesome', status: '~' },
-  { title: 'Help others selflessly, without expecting anything in return', status: '~' },
-  { title: 'Be kind and compassionate', status: '~' },
-  { title: 'Be a speaker at an international conference', status: '✗' },
-  { title: 'Get hired by a FAANG or other top tech company', status: '✗' },
+  { title: 'Earn a PhD', status: MyThingStatus.NotDone },
+  { title: 'Be awesome', status: MyThingStatus.InProgress },
+  {
+    title: 'Help others selflessly, without expecting anything in return',
+    status: MyThingStatus.InProgress,
+  },
+  { title: 'Be kind and compassionate', status: MyThingStatus.InProgress },
+  { title: 'Be a speaker at an international conference', status: MyThingStatus.NotDone },
+  { title: 'Get hired by a FAANG or other top tech company', status: MyThingStatus.NotDone },
 ]
 
 export default function List100() {
@@ -66,7 +82,7 @@ export default function List100() {
               }
 
               return (
-                <div key={index} className="flex items-start space-x-3">
+                <div key={index} className="flex items-center space-x-3">
                   <span className="w-8 text-right text-sm text-gray-500 dark:text-gray-400">
                     {index + 1}.
                   </span>
@@ -75,6 +91,13 @@ export default function List100() {
                 </div>
               )
             })}
+            <div className="flex items-center space-x-3">
+              <span className="w-8 text-right text-sm text-gray-500 dark:text-gray-400">
+                {list100.length + 1}.
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">~</span>
+              <span>Update later...</span>
+            </div>
           </div>
         </div>
       </div>
