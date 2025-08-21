@@ -1,7 +1,3 @@
----
-alwaysApply: false
----
-
 ## Use kebab-case for file names
 
 Example 1:

@@ -1,8 +1,3 @@
----
-description: 
-globs: client/src/**/*.tsx
-alwaysApply: false
----
 ## Basically use `zod` `schema` for useForm hook
 
 Example:
