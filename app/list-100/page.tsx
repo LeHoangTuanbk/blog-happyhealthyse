@@ -40,21 +40,23 @@ export default function List100() {
               }
 
               return (
-                <div key={index} className="flex items-center space-x-3">
-                  <span className="w-8 text-right text-sm text-gray-500 dark:text-gray-400">
+                <div key={index} className="flex space-x-2 sm:space-x-3">
+                  <span className="w-6 flex-shrink-0 text-right text-sm leading-6 text-gray-500 sm:w-8 dark:text-gray-400">
                     {index + 1}.
                   </span>
-                  <span className={getStatusColor(item.status)}>{item.status}</span>
-                  <span>{item.title}</span>
+                  <span className={`${getStatusColor(item.status)} flex-shrink-0 leading-6`}>
+                    {item.status}
+                  </span>
+                  <span className="flex-1 leading-6">{item.title}</span>
                 </div>
               )
             })}
-            <div className="flex items-center space-x-3">
-              <span className="w-8 text-right text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex space-x-2 sm:space-x-3">
+              <span className="w-6 sm:w-8 flex-shrink-0 text-right text-sm text-gray-500 dark:text-gray-400 leading-6">
                 {list100.length + 1}.
               </span>
-              <span className="text-gray-500 dark:text-gray-400">~</span>
-              <span>Update later...</span>
+              <span className="flex-shrink-0 text-gray-500 dark:text-gray-400 leading-6">~</span>
+              <span className="flex-1 leading-6">Update later...</span>
             </div>
           </div>
         </div>
