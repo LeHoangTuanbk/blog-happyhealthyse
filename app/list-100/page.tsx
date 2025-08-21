@@ -52,10 +52,10 @@ export default function List100() {
               )
             })}
             <div className="flex space-x-2 sm:space-x-3">
-              <span className="w-6 sm:w-8 flex-shrink-0 text-right text-sm text-gray-500 dark:text-gray-400 leading-6">
+              <span className="w-6 flex-shrink-0 text-right text-sm leading-6 text-gray-500 sm:w-8 dark:text-gray-400">
                 {list100.length + 1}.
               </span>
-              <span className="flex-shrink-0 text-gray-500 dark:text-gray-400 leading-6">~</span>
+              <span className="flex-shrink-0 leading-6 text-gray-500 dark:text-gray-400">~</span>
               <span className="flex-1 leading-6">Update later...</span>
             </div>
           </div>
