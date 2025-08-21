@@ -1,0 +1,664 @@
+---
+title: 'Container/Presentational Pattern trong React với TypeScript'
+date: '2025-01-21'
+tags: ['react', 'typescript', 'design-patterns', 'architecture', 'best-practices']
+draft: false
+summary: 'Tìm hiểu về Container/Presentational pattern trong React - một pattern giúp tách biệt logic và UI, cải thiện khả năng tái sử dụng và test. Bài viết kèm code demo TypeScript thực tế.'
+authors: ['default']
+layout: 'PostLayout'
+---
+
+## Giới thiệu Container/Presentational Pattern
+
+Container/Presentational Pattern (còn gọi là Smart/Dumb Components) là một trong những design patterns phổ biến nhất trong React. Pattern này được Dan Abramov (tác giả Redux) giới thiệu và đã trở thành một cách tiếp cận chuẩn để tổ chức code React.
+
+**Ý tưởng cốt lõi:** Tách biệt các component thành hai loại chính:
+- **Container Components** (Smart): Quản lý logic, state, và side effects
+- **Presentational Components** (Dumb): Chỉ tập trung vào việc hiển thị UI
+
+## Tại sao nên sử dụng pattern này?
+
+### Lợi ích chính:
+
+1. **Tách biệt trách nhiệm rõ ràng** - Logic và UI hoàn toàn độc lập
+2. **Dễ test hơn** - Presentational components dễ test, Container components tập trung logic
+3. **Tái sử dụng cao** - Presentational components có thể sử dụng ở nhiều nơi khác nhau
+4. **Dễ maintain** - Thay đổi logic không ảnh hưởng UI và ngược lại
+5. **Team collaboration tốt hơn** - Designer có thể tập trung vào Presentational, Developer tập trung vào Container
+
+## Đặc điểm của từng loại component
+
+### Presentational Components
+
+**Đặc điểm:**
+- Chỉ nhận props và render UI
+- Không có local state (trước Hooks) hoặc chỉ có UI state đơn giản
+- Không thực hiện side effects
+- Thường là functional components
+- Có thể chứa cả Presentational và Container components con
+
+### Container Components  
+
+**Đặc điểm:**
+- Cung cấp data và behavior cho Presentational components
+- Thường có state và lifecycle methods
+- Gọi API, xử lý side effects
+- Thường wrap các Presentational components
+- Ít hoặc không có markup riêng
+
+## Ví dụ thực tế: Todo App
+
+Hãy cùng xây dựng một Todo App đơn giản để minh họa pattern này.
+
+### 1. Định nghĩa Types
+
+```typescript
+// types/todo.ts
+export interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}
+
+export interface TodoFormData {
+  text: string;
+}
+
+export interface TodoStats {
+  total: number;
+  completed: number;
+  pending: number;
+}
+```
+
+### 2. Presentational Components
+
+#### TodoItem Component
+
+```typescript
+// components/todo-item.tsx
+import { Todo } from '../types/todo';
+
+interface TodoItemProps {
+  todo: Todo;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string, newText: string) => void;
+}
+
+export const TodoItem = ({ 
+  todo, 
+  onToggle, 
+  onDelete, 
+  onEdit 
+}: TodoItemProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(todo.text);
+
+  const handleEdit = () => {
+    if (isEditing && editText.trim()) {
+      onEdit(todo.id, editText.trim());
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleEdit();
+    } else if (e.key === 'Escape') {
+      setEditText(todo.text);
+      setIsEditing(false);
+    }
+  };
+
+  return (
+    <div className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={() => onToggle(todo.id)}
+        className="todo-checkbox"
+      />
+      
+      {isEditing ? (
+        <input
+          type="text"
+          value={editText}
+          onChange={(e) => setEditText(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onBlur={handleEdit}
+          className="todo-edit-input"
+          autoFocus
+        />
+      ) : (
+        <span 
+          className="todo-text"
+          onDoubleClick={() => setIsEditing(true)}
+        >
+          {todo.text}
+        </span>
+      )}
+      
+      <div className="todo-actions">
+        <button
+          onClick={handleEdit}
+          className="edit-btn"
+          disabled={todo.completed}
+        >
+          {isEditing ? '✓' : '✏️'}
+        </button>
+        
+        <button
+          onClick={() => onDelete(todo.id)}
+          className="delete-btn"
+        >
+          🗑️
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+#### TodoList Component
+
+```typescript
+// components/todo-list.tsx
+import { Todo } from '../types/todo';
+import { TodoItem } from './todo-item';
+
+interface TodoListProps {
+  todos: Todo[];
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string, newText: string) => void;
+  emptyMessage?: string;
+}
+
+export const TodoList = ({
+  todos,
+  onToggle,
+  onDelete,
+  onEdit,
+  emptyMessage = "Không có todo nào"
+}: TodoListProps) => {
+  if (todos.length === 0) {
+    return (
+      <div className="empty-state">
+        <p>{emptyMessage}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="todo-list">
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
+      ))}
+    </div>
+  );
+};
+```
+
+#### TodoForm Component
+
+```typescript
+// components/todo-form.tsx
+import { useState } from 'react';
+import { TodoFormData } from '../types/todo';
+
+interface TodoFormProps {
+  onSubmit: (data: TodoFormData) => void;
+  placeholder?: string;
+  buttonText?: string;
+  isLoading?: boolean;
+}
+
+export const TodoForm = ({ 
+  onSubmit, 
+  placeholder = "Thêm todo mới...",
+  buttonText = "Thêm",
+  isLoading = false
+}: TodoFormProps) => {
+  const [text, setText] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!text.trim()) return;
+    
+    onSubmit({ text: text.trim() });
+    setText('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="todo-form">
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder={placeholder}
+        disabled={isLoading}
+        className="todo-input"
+      />
+      
+      <button 
+        type="submit" 
+        disabled={!text.trim() || isLoading}
+        className="submit-btn"
+      >
+        {isLoading ? 'Đang thêm...' : buttonText}
+      </button>
+    </form>
+  );
+};
+```
+
+#### TodoStats Component
+
+```typescript
+// components/todo-stats.tsx
+import { TodoStats as Stats } from '../types/todo';
+
+interface TodoStatsProps {
+  stats: Stats;
+  className?: string;
+}
+
+export const TodoStats = ({ stats, className }: TodoStatsProps) => {
+  const completionRate = stats.total > 0 
+    ? Math.round((stats.completed / stats.total) * 100)
+    : 0;
+
+  return (
+    <div className={`todo-stats ${className || ''}`}>
+      <div className="stats-grid">
+        <div className="stat-item">
+          <span className="stat-number">{stats.total}</span>
+          <span className="stat-label">Tổng cộng</span>
+        </div>
+        
+        <div className="stat-item">
+          <span className="stat-number">{stats.completed}</span>
+          <span className="stat-label">Hoàn thành</span>
+        </div>
+        
+        <div className="stat-item">
+          <span className="stat-number">{stats.pending}</span>
+          <span className="stat-label">Chưa xong</span>
+        </div>
+        
+        <div className="stat-item">
+          <span className="stat-number">{completionRate}%</span>
+          <span className="stat-label">Tiến độ</span>
+        </div>
+      </div>
+      
+      <div className="progress-bar">
+        <div 
+          className="progress-fill" 
+          style={{ width: `${completionRate}%` }}
+        />
+      </div>
+    </div>
+  );
+};
+```
+
+### 3. Custom Hooks (Logic Layer)
+
+```typescript
+// hooks/use-todos.ts
+import { useState, useCallback, useMemo } from 'react';
+import { Todo, TodoFormData, TodoStats } from '../types/todo';
+
+export const useTodos = (initialTodos: Todo[] = []) => {
+  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addTodo = useCallback(async (data: TodoFormData) => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const newTodo: Todo = {
+      id: Date.now().toString(),
+      text: data.text,
+      completed: false,
+      createdAt: new Date(),
+    };
+    
+    setTodos(prev => [newTodo, ...prev]);
+    setIsLoading(false);
+  }, []);
+
+  const toggleTodo = useCallback((id: string) => {
+    setTodos(prev => prev.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  }, []);
+
+  const deleteTodo = useCallback((id: string) => {
+    setTodos(prev => prev.filter(todo => todo.id !== id));
+  }, []);
+
+  const editTodo = useCallback((id: string, newText: string) => {
+    setTodos(prev => prev.map(todo =>
+      todo.id === id ? { ...todo, text: newText } : todo
+    ));
+  }, []);
+
+  const clearCompleted = useCallback(() => {
+    setTodos(prev => prev.filter(todo => !todo.completed));
+  }, []);
+
+  const stats: TodoStats = useMemo(() => {
+    const total = todos.length;
+    const completed = todos.filter(todo => todo.completed).length;
+    const pending = total - completed;
+    
+    return { total, completed, pending };
+  }, [todos]);
+
+  return {
+    todos,
+    stats,
+    isLoading,
+    actions: {
+      addTodo,
+      toggleTodo,
+      deleteTodo,
+      editTodo,
+      clearCompleted,
+    },
+  };
+};
+```
+
+### 4. Container Component
+
+```typescript
+// containers/todo-app-container.tsx
+import { useTodos } from '../hooks/use-todos';
+import { TodoForm } from '../components/todo-form';
+import { TodoList } from '../components/todo-list';
+import { TodoStats } from '../components/todo-stats';
+
+interface TodoAppContainerProps {
+  initialTodos?: Todo[];
+  title?: string;
+}
+
+export const TodoAppContainer = ({ 
+  initialTodos,
+  title = "My Todo App" 
+}: TodoAppContainerProps) => {
+  const { todos, stats, isLoading, actions } = useTodos(initialTodos);
+
+  return (
+    <div className="todo-app">
+      <header className="app-header">
+        <h1>{title}</h1>
+        <TodoStats stats={stats} />
+      </header>
+
+      <main className="app-main">
+        <TodoForm 
+          onSubmit={actions.addTodo}
+          isLoading={isLoading}
+        />
+        
+        <TodoList
+          todos={todos}
+          onToggle={actions.toggleTodo}
+          onDelete={actions.deleteTodo}
+          onEdit={actions.editTodo}
+        />
+      </main>
+
+      <footer className="app-footer">
+        {stats.completed > 0 && (
+          <button 
+            onClick={actions.clearCompleted}
+            className="clear-btn"
+          >
+            Xóa các todo đã hoàn thành ({stats.completed})
+          </button>
+        )}
+      </footer>
+    </div>
+  );
+};
+```
+
+### 5. Usage Example
+
+```typescript
+// App.tsx
+import { TodoAppContainer } from './containers/todo-app-container';
+
+const App = () => {
+  const initialTodos = [
+    {
+      id: '1',
+      text: 'Học React Pattern',
+      completed: false,
+      createdAt: new Date(),
+    },
+    {
+      id: '2', 
+      text: 'Viết blog về Container/Presentational',
+      completed: true,
+      createdAt: new Date(),
+    },
+  ];
+
+  return (
+    <div className="app">
+      <TodoAppContainer 
+        initialTodos={initialTodos}
+        title="Todo App với Container/Presentational Pattern"
+      />
+    </div>
+  );
+};
+
+export default App;
+```
+
+## Advanced: Với React Context
+
+Đối với ứng dụng lớn hơn, bạn có thể combine pattern này với Context API:
+
+```typescript
+// contexts/todo-context.tsx
+import { createContext, useContext } from 'react';
+import { useTodos } from '../hooks/use-todos';
+
+const TodoContext = createContext<ReturnType<typeof useTodos> | null>(null);
+
+export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
+  const todoState = useTodos();
+  
+  return (
+    <TodoContext.Provider value={todoState}>
+      {children}
+    </TodoContext.Provider>
+  );
+};
+
+export const useTodoContext = () => {
+  const context = useContext(TodoContext);
+  if (!context) {
+    throw new Error('useTodoContext must be used within TodoProvider');
+  }
+  return context;
+};
+
+// Container component với context
+export const TodoAppWithContext = () => {
+  return (
+    <TodoProvider>
+      <TodoAppContainer />
+    </TodoProvider>
+  );
+};
+```
+
+## Testing Strategy
+
+### Testing Presentational Components
+
+```typescript
+// __tests__/todo-item.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { TodoItem } from '../components/todo-item';
+
+const mockTodo = {
+  id: '1',
+  text: 'Test todo',
+  completed: false,
+  createdAt: new Date(),
+};
+
+const mockProps = {
+  todo: mockTodo,
+  onToggle: jest.fn(),
+  onDelete: jest.fn(), 
+  onEdit: jest.fn(),
+};
+
+describe('TodoItem', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders todo text correctly', () => {
+    render(<TodoItem {...mockProps} />);
+    expect(screen.getByText('Test todo')).toBeInTheDocument();
+  });
+
+  it('calls onToggle when checkbox is clicked', () => {
+    render(<TodoItem {...mockProps} />);
+    
+    const checkbox = screen.getByRole('checkbox');
+    fireEvent.click(checkbox);
+    
+    expect(mockProps.onToggle).toHaveBeenCalledWith('1');
+  });
+
+  it('enters edit mode on double click', () => {
+    render(<TodoItem {...mockProps} />);
+    
+    const textElement = screen.getByText('Test todo');
+    fireEvent.doubleClick(textElement);
+    
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+  });
+});
+```
+
+### Testing Container Logic
+
+```typescript
+// __tests__/use-todos.test.ts
+import { renderHook, act } from '@testing-library/react';
+import { useTodos } from '../hooks/use-todos';
+
+describe('useTodos', () => {
+  it('should add new todo', async () => {
+    const { result } = renderHook(() => useTodos());
+
+    await act(async () => {
+      await result.current.actions.addTodo({ text: 'New todo' });
+    });
+
+    expect(result.current.todos).toHaveLength(1);
+    expect(result.current.todos[0].text).toBe('New todo');
+    expect(result.current.todos[0].completed).toBe(false);
+  });
+
+  it('should toggle todo completion', () => {
+    const initialTodos = [{
+      id: '1',
+      text: 'Test',
+      completed: false,
+      createdAt: new Date(),
+    }];
+
+    const { result } = renderHook(() => useTodos(initialTodos));
+
+    act(() => {
+      result.current.actions.toggleTodo('1');
+    });
+
+    expect(result.current.todos[0].completed).toBe(true);
+  });
+});
+```
+
+## Khi nào nên sử dụng pattern này?
+
+### ✅ Nên sử dụng khi:
+- Component có logic phức tạp (API calls, state management)
+- Cần tái sử dụng UI component với data khác nhau
+- Team có nhiều người (tách biệt công việc UI/Logic)
+- Cần test coverage cao
+- Dự án lớn, cần maintainable architecture
+
+### ❌ Không nên sử dụng khi:
+- Component đơn giản, chỉ hiển thị static content
+- Dự án nhỏ, không cần over-engineering
+- Logic và UI quá gắn liền nhau
+- Performance không phải concern chính
+
+## Modern Alternatives
+
+Với sự ra đời của React Hooks, pattern này đã được "soft deprecated" bởi Dan Abramov. Các alternatives hiện đại:
+
+### 1. Custom Hooks + Functional Components
+
+```typescript
+// Thay vì Container component, sử dụng custom hook
+const TodoApp = () => {
+  const { todos, actions } = useTodos();
+  
+  return (
+    <div>
+      <TodoForm onSubmit={actions.addTodo} />
+      <TodoList todos={todos} onToggle={actions.toggleTodo} />
+    </div>
+  );
+};
+```
+
+### 2. Compound Components Pattern
+
+```typescript
+const TodoApp = () => (
+  <Todo.Provider>
+    <Todo.Stats />
+    <Todo.Form />
+    <Todo.List />
+  </Todo.Provider>
+);
+```
+
+## Kết luận
+
+Container/Presentational Pattern vẫn là một pattern hữu ích trong React, đặc biệt cho:
+- **Team lớn** cần tách biệt trách nhiệm rõ ràng  
+- **Enterprise applications** cần kiến trúc ổn định
+- **Design systems** cần component tái sử dụng cao
+
+Trong khi Hooks đã làm pattern này ít phổ biến hơn, những nguyên tắc cốt lõi - **tách biệt logic và UI** - vẫn luôn có giá trị trong bất kỳ ứng dụng React nào.
+
+Pattern này không chỉ giúp code organized hơn, mà còn giúp team collaboration tốt hơn và testing dễ dàng hơn. Hãy cân nhắc sử dụng khi dự án của bạn cần những lợi ích này!

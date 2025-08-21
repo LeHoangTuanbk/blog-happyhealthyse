@@ -171,4 +171,4 @@ EXPORT=1 UNOPTIMIZED=1 yarn build
 
 ## Coding convention
 
-- My coding convention are written in documents/development/coding-convention. You need to access to those files before you give me code
+- My coding convention are written in documents/development/coding-convention/\* . You need to access to those files before you give me code
