@@ -84,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         sizes="16x16"
         href={`${basePath}/static/favicons/favicon-16x16.png`}
       />
+      <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
       <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
       <link
         rel="mask-icon"
