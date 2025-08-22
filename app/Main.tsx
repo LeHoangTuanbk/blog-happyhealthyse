@@ -1,6 +1,6 @@
 import Link from 'shared/ui/components/Link'
 import Tag from 'shared/ui/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
+import siteMetadata from '@/shared/config/site'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 

@@ -1,4 +1,4 @@
-import projectsData from '@/data/projectsData'
+import projectsData from '@/entities/project/data/projects'
 import Card from 'shared/ui/components/Card'
 import { genPageMetadata } from 'app/seo'
 

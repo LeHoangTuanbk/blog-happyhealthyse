@@ -7,7 +7,7 @@ import PageTitle from 'shared/ui/components/PageTitle'
 import SectionContainer from 'shared/ui/components/SectionContainer'
 import Image from 'shared/ui/components/Image'
 import Tag from 'shared/ui/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
+import siteMetadata from '@/shared/config/site'
 import ScrollTopAndComment from 'shared/ui/components/ScrollTopAndComment'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
