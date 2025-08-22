@@ -148,7 +148,7 @@ export const Authors = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: 'content',
+  contentDirPath: 'shared/content',
   documentTypes: [Blog, Authors],
   mdx: {
     cwd: process.cwd(),
@@ -174,7 +174,7 @@ export default makeSource({
       ],
       rehypeKatex,
       rehypeKatexNoTranslate,
-      [rehypeCitation, { path: path.join(root, 'content') }],
+      [rehypeCitation, { path: path.join(root, 'shared/content') }],
       [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
       rehypePresetMinify,
     ],
