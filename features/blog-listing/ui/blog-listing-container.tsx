@@ -1,8 +1,8 @@
 'use client'
 
 import { formatDate } from 'pliny/utils/formatDate'
-import Link from 'shared/ui/components/link'
-import Tag from 'shared/ui/components/tag'
+import Link from '@/shared/ui/components/link'
+import Tag from '@/shared/ui/components/tag'
 import siteMetadata from '@/shared/config/site'
 import { BlogSearch } from './blog-search'
 import { BlogPagination } from './blog-pagination'

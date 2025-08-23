@@ -1,14 +1,14 @@
 import { ReactNode } from 'react'
-import Image from 'shared/ui/components/image'
+import Image from '@/shared/ui/components/image'
 import Bleed from 'pliny/ui/Bleed'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
-import Comments from 'shared/ui/components/comments'
-import Link from 'shared/ui/components/link'
-import PageTitle from 'shared/ui/components/page-title'
-import SectionContainer from 'shared/ui/components/section-container'
+import Comments from '@/shared/ui/components/comments'
+import Link from '@/shared/ui/components/link'
+import PageTitle from '@/shared/ui/components/page-title'
+import SectionContainer from '@/shared/ui/components/section-container'
 import siteMetadata from '@/shared/config/site'
-import ScrollTopAndComment from 'shared/ui/components/scroll-top-and-comment'
+import ScrollTopAndComment from '@/shared/ui/components/scroll-top-and-comment'
 
 interface LayoutProps {
   content: CoreContent<Blog>

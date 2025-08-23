@@ -2,7 +2,7 @@ import siteMetadata from '@/shared/config/site'
 import { NavLogo, DesktopNav } from '@/features/navigation'
 import { ThemeSwitch } from '@/features/theme-switching'
 import { SearchButton } from '@/features/search'
-import MobileNav from './mobile-nav'
+import MobileNav from '@/shared/ui/components/mobile-nav'
 
 const Header = () => {
   let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'

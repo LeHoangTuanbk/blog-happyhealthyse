@@ -1,5 +1,5 @@
 import projectsData from '@/entities/project/data/projects'
-import Card from 'shared/ui/components/card'
+import Card from '@/shared/ui/components/card'
 import { genPageMetadata } from 'app/seo'
 
 export const metadata = genPageMetadata({ title: 'Projects' })
