@@ -54,7 +54,7 @@ const Monitor = () => (
 )
 const Blank = () => <svg className="h-6 w-6" />
 
-const ThemeSwitch = () => {
+export const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
 
@@ -135,5 +135,3 @@ const ThemeSwitch = () => {
     </div>
   )
 }
-
-export default ThemeSwitch

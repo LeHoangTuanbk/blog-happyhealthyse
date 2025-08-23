@@ -1,9 +1,8 @@
 'use client'
 
-import siteMetadata from '@/shared/config/site'
 import { useEffect, useState } from 'react'
 
-const ScrollTopAndComment = () => {
+export const ScrollTopAndComment = () => {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -19,9 +18,7 @@ const ScrollTopAndComment = () => {
   const handleScrollTop = () => {
     window.scrollTo({ top: 0 })
   }
-  const handleScrollToComment = () => {
-    document.getElementById('comment')?.scrollIntoView()
-  }
+
   return (
     <div
       className={`fixed right-8 bottom-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
@@ -42,5 +39,3 @@ const ScrollTopAndComment = () => {
     </div>
   )
 }
-
-export default ScrollTopAndComment

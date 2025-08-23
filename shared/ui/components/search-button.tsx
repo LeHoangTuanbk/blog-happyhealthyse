@@ -2,7 +2,7 @@ import { AlgoliaButton } from 'pliny/search/AlgoliaButton'
 import { KBarButton } from 'pliny/search/KBarButton'
 import siteMetadata from '@/shared/config/site'
 
-const SearchButton = () => {
+export const SearchButton = () => {
   if (
     siteMetadata.search &&
     (siteMetadata.search.provider === 'algolia' || siteMetadata.search.provider === 'kbar')
@@ -30,5 +30,3 @@ const SearchButton = () => {
     )
   }
 }
-
-export default SearchButton

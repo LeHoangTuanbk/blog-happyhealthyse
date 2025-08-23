@@ -34,7 +34,7 @@ type SocialIconProps = {
   size?: number
 }
 
-const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
+export const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
   if (
     !href ||
     (kind === 'mail' && !/^mailto:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(href))
@@ -57,5 +57,3 @@ const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
     </a>
   )
 }
-
-export default SocialIcon

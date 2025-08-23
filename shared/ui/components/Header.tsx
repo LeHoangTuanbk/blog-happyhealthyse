@@ -2,9 +2,9 @@ import siteMetadata from '@/shared/config/site'
 import { NavLogo, DesktopNav } from '@/features/navigation'
 import { ThemeSwitch } from '@/features/theme-switching'
 import { SearchButton } from '@/features/search'
-import MobileNav from './mobile-nav'
+import { MobileNav } from './mobile-nav'
 
-const Header = () => {
+export const Header = () => {
   let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
@@ -22,5 +22,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header

@@ -1,14 +1,14 @@
-import Image from './image'
-import Link from './link'
+import { Image } from './image'
+import { Link } from './link'
 
-interface CardProps {
+type CardProps = {
   title: string
   description: string
   imgSrc?: string
   href?: string
 }
 
-const Card = ({ title, description, imgSrc, href }: CardProps) => (
+export const Card = ({ title, description, imgSrc, href }: CardProps) => (
   <div className="md max-w-[544px] p-4 md:w-1/2">
     <div
       className={`${
@@ -59,5 +59,3 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
     </div>
   </div>
 )
-
-export default Card

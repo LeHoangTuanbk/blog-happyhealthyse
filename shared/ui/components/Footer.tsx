@@ -1,8 +1,8 @@
-import Link from './link'
+import { Link } from './link'
 import siteMetadata from '@/shared/config/site'
-import SocialIcon from './social-icons'
+import { SocialIcon } from './social-icons'
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer>
       <div className="mt-16 flex flex-col items-center">
