@@ -3,10 +3,10 @@
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { Fragment, useState, useEffect, useRef } from 'react'
-import Link from './Link'
+import { Link } from './link'
 import headerNavLinks from '@/shared/config/navigation'
 
-const MobileNav = () => {
+export const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
   const navRef = useRef(null)
 
@@ -104,5 +104,3 @@ const MobileNav = () => {
     </>
   )
 }
-
-export default MobileNav

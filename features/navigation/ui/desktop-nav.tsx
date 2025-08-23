@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'shared/ui/components/Link'
+import { Link } from '@/shared/ui/components'
 import { useNavigation } from '../lib/use-navigation'
 
 export const DesktopNav = () => {

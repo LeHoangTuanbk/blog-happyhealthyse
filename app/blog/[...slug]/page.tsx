@@ -1,15 +1,15 @@
-import 'shared/ui/styles/prism.css'
+import '@/shared/ui/styles/prism.css'
 import 'katex/dist/katex.css'
 
-import PageTitle from 'shared/ui/components/PageTitle'
-import { components } from 'shared/ui/components/MDXComponents'
+import { PageTitle } from '@/shared/ui/components'
+import { MDXComponents } from '@/shared/ui/components'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
 import type { Authors, Blog } from 'contentlayer/generated'
-import PostSimple from '@/shared/ui/layouts/PostSimple'
-import PostLayout from '@/shared/ui/layouts/PostLayout'
-import PostBanner from '@/shared/ui/layouts/PostBanner'
+import PostSimple from '@/shared/ui/layouts/post-simple'
+import PostLayout from '@/shared/ui/layouts/post-layout'
+import PostBanner from '@/shared/ui/layouts/post-banner'
 import { Metadata } from 'next'
 import siteMetadata from '@/shared/config/site'
 import { notFound } from 'next/navigation'
@@ -113,7 +113,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
-        <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
+        <MDXLayoutRenderer code={post.body.code} components={MDXComponents} toc={post.toc} />
       </Layout>
     </>
   )

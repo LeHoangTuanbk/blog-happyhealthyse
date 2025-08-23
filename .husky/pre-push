@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "==================================="
+echo "Running pre-push checks..."
+echo "==================================="
+
+echo "1. Running lint..."
+yarn lint
+
+if [ $? -ne 0 ]; then
+  echo "❌ Lint failed. Push aborted."
+  exit 1
+fi
+
+echo "2. Building project..."
+yarn build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed. Push aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed! Proceeding with push..."
