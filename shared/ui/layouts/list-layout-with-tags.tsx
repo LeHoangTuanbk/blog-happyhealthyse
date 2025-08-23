@@ -10,6 +10,7 @@ import { Tag } from '@/shared/ui/components'
 import siteMetadata from '@/shared/config/site'
 import tagData from 'app/tag-data.json'
 
+// TODO: Refactor type and component to use the new pagination component
 interface PaginationProps {
   totalPages: number
   currentPage: number
@@ -124,11 +125,11 @@ export default function ListLayoutWithTags({
             </div>
           </div>
           <div>
-            <ul>
+            <ul className="flex flex-col space-y-5">
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
                 return (
-                  <li key={path} className="py-5">
+                  <li key={path}>
                     <article className="flex flex-col space-y-2 rounded-lg border border-gray-200/60 bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl xl:space-y-0 dark:border-gray-700/60 dark:bg-gray-900/70 dark:text-gray-300">
                       <dl>
                         <dt className="sr-only">Published on</dt>
