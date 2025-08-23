@@ -1,14 +1,10 @@
 import { Link } from './link'
 import siteMetadata from '@/shared/config/site'
-import { SocialIcon } from './social-icons'
 
 export const Footer = () => {
   return (
     <footer>
       <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
-          <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
-        </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{siteMetadata.author}</div>
           <div>{` • `}</div>
@@ -17,7 +13,12 @@ export const Footer = () => {
           <Link href="/">{siteMetadata.title}</Link>
         </div>
         <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">View source</Link>
+          <Link
+            href="https://github.com/LeHoangTuanbk/blog-happyhealthyse"
+            className="hover:underline"
+          >
+            View source
+          </Link>
         </div>
       </div>
     </footer>
