@@ -1,4 +1,4 @@
-import Link from '@/shared/ui/components/link'
+import { Link } from '@/shared/ui/components'
 
 export default function NotFound() {
   return (

@@ -1,5 +1,5 @@
-import Link from '@/shared/ui/components/link'
-import Tag from '@/shared/ui/components/tag'
+import { Link } from '@/shared/ui/components'
+import { Tag } from '@/shared/ui/components'
 import siteMetadata from '@/shared/config/site'
 import { formatDate } from 'pliny/utils/formatDate'
 
