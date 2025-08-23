@@ -1,4 +1,4 @@
-import 'shared/ui/styles/tailwind.css'
+import '@/shared/ui/styles/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 

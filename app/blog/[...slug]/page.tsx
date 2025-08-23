@@ -1,4 +1,4 @@
-import 'shared/ui/styles/prism.css'
+import '@/shared/ui/styles/prism.css'
 import 'katex/dist/katex.css'
 
 import { PageTitle } from '@/shared/ui/components'
