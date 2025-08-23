@@ -175,10 +175,10 @@ input:-webkit-autofill:focus {
 }
 
 /* KBar Search Specific Styling - Safe Targeting */
-
+/* TODO: Will fix this CSS later */
 /* Target only KBar modal container */
 [data-kbar-modal] .w-full.max-w-xl,
-div[style*="position: fixed"][style*="display: flex"] .w-full.max-w-xl {
+div[style*='position: fixed'][style*='display: flex'] .w-full.max-w-xl {
   max-width: 640px !important;
   width: 50vw !important;
   min-width: 480px !important;
@@ -186,87 +186,87 @@ div[style*="position: fixed"][style*="display: flex"] .w-full.max-w-xl {
 
 @media (max-width: 768px) {
   [data-kbar-modal] .w-full.max-w-xl,
-  div[style*="position: fixed"][style*="display: flex"] .w-full.max-w-xl {
+  div[style*='position: fixed'][style*='display: flex'] .w-full.max-w-xl {
     width: 85vw !important;
     min-width: 300px !important;
   }
 }
 
 /* Target only KBar search modal background */
-div[style*="position: fixed"] .overflow-hidden.rounded-2xl.border {
+div[style*='position: fixed'] .overflow-hidden.rounded-2xl.border {
   background-color: white !important;
   border-color: rgb(229, 231, 235) !important;
 }
 
-.dark div[style*="position: fixed"] .overflow-hidden.rounded-2xl.border {
+.dark div[style*='position: fixed'] .overflow-hidden.rounded-2xl.border {
   background-color: rgb(31, 41, 55) !important;
   border-color: rgb(75, 85, 99) !important;
 }
 
 /* Target only KBar search input */
-div[style*="position: fixed"] [role="combobox"] {
+div[style*='position: fixed'] [role='combobox'] {
   color: rgb(31, 41, 55) !important;
   background-color: transparent !important;
 }
 
-.dark div[style*="position: fixed"] [role="combobox"] {
+.dark div[style*='position: fixed'] [role='combobox'] {
   color: rgb(255, 255, 255) !important;
   background-color: transparent !important;
 }
 
-div[style*="position: fixed"] [role="combobox"]::placeholder {
+div[style*='position: fixed'] [role='combobox']::placeholder {
   color: rgb(107, 114, 128) !important;
 }
 
-.dark div[style*="position: fixed"] [role="combobox"]::placeholder {
+.dark div[style*='position: fixed'] [role='combobox']::placeholder {
   color: rgb(156, 163, 175) !important;
 }
 
 /* Target only KBar input container */
-div[style*="position: fixed"] .flex.items-center.space-x-4.p-4 {
+div[style*='position: fixed'] .flex.items-center.space-x-4.p-4 {
   background-color: white !important;
 }
 
-.dark div[style*="position: fixed"] .flex.items-center.space-x-4.p-4 {
+.dark div[style*='position: fixed'] .flex.items-center.space-x-4.p-4 {
   background-color: rgb(31, 41, 55) !important;
 }
 
 /* Target only KBar results */
-div[style*="position: fixed"] [role="listbox"] {
+div[style*='position: fixed'] [role='listbox'] {
   background-color: transparent !important;
 }
 
-div[style*="position: fixed"] [role="option"] {
+div[style*='position: fixed'] [role='option'] {
   background-color: transparent !important;
 }
 
-div[style*="position: fixed"] [role="option"][aria-selected="true"] {
+div[style*='position: fixed'] [role='option'][aria-selected='true'] {
   background-color: rgb(99, 102, 241) !important;
   color: white !important;
 }
 
-.dark div[style*="position: fixed"] [role="option"][aria-selected="true"] {
+.dark div[style*='position: fixed'] [role='option'][aria-selected='true'] {
   background-color: rgb(99, 102, 241) !important;
   color: white !important;
 }
 
 /* Target only KBar text colors */
-div[style*="position: fixed"] .text-gray-700 {
+div[style*='position: fixed'] .text-gray-700 {
   color: rgb(55, 65, 81) !important;
 }
 
-.dark div[style*="position: fixed"] .text-gray-700 {
+.dark div[style*='position: fixed'] .text-gray-700 {
   color: rgb(243, 244, 246) !important;
 }
 
-.dark div[style*="position: fixed"] .text-gray-100 {
+.dark div[style*='position: fixed'] .text-gray-100 {
   color: rgb(243, 244, 246) !important;
 }
 
-div[style*="position: fixed"] .text-gray-400 {
+div[style*='position: fixed'] .text-gray-400 {
   color: rgb(156, 163, 175) !important;
 }
 
-.dark div[style*="position: fixed"] .text-gray-400 {
+.dark div[style*='position: fixed'] .text-gray-400 {
   color: rgb(156, 163, 175) !important;
 }
