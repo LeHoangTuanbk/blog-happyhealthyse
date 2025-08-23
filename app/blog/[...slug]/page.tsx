@@ -1,8 +1,8 @@
 import 'shared/ui/styles/prism.css'
 import 'katex/dist/katex.css'
 
-import PageTitle from '@/shared/ui/components/page-title'
-import { components } from '@/shared/ui/components/mdx-components'
+import { PageTitle } from '@/shared/ui/components'
+import { MDXComponents } from '@/shared/ui/components'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
@@ -113,7 +113,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
-        <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
+        <MDXLayoutRenderer code={post.body.code} components={MDXComponents} toc={post.toc} />
       </Layout>
     </>
   )

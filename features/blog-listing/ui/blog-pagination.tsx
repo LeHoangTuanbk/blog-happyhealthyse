@@ -1,4 +1,4 @@
-import Link from '@/shared/ui/components/link'
+import { Link } from '@/shared/ui/components'
 import { usePagination } from '../lib/use-pagination'
 import type { PaginationProps } from '@/entities/blog'
 
