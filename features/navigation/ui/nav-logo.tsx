@@ -1,4 +1,4 @@
-import Link from 'shared/ui/components/Link'
+import Link from 'shared/ui/components/link'
 import Image from 'next/image'
 import siteMetadata from '@/shared/config/site'
 

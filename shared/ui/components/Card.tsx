@@ -1,5 +1,5 @@
-import Image from './Image'
-import Link from './Link'
+import Image from './image'
+import Link from './link'
 
 interface CardProps {
   title: string

@@ -1,4 +1,4 @@
-import Link from './Link'
+import Link from './link'
 import siteMetadata from '@/shared/config/site'
 import SocialIcon from 'shared/ui/components/social-icons'
 
