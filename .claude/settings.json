@@ -22,26 +22,19 @@
       "Bash(git checkout fix/*)",
       "Bash(git pull origin feat/*)",
       "Bash(git pull origin fix/*)",
-      "Bash(git push -u origin feat:*)",
-      "Bash(git push -u origin fix:*)",
-      "Bash(git push -u origin chore:*)",
-      "Bash(git push -u origin test:*)",
-      "Bash(git push -u origin docs:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr create:*)",
-      "Read(client/**)",
-      "Read(server/**)",
-      "Read(admin/**)",
-      "Read(gateway/**)",
-      "Read(infrastructure/**)",
+      "Read(app:*)",
+      "Read(server:*)",
+      "Read(gateway:**)",
+      "Read(infrastructure:**)",
       "Read(CLAUDE.md)",
       "Read(package.json)",
-      "Edit(client/**)",
-      "Edit(server/**)",
-      "Edit(admin/**)",
-      "Edit(gateway/**)",
-      "Edit(infrastructure/**)",
+      "Edit(client:*)",
+      "Edit(server:*)",
+      "Edit(gateway:*)",
+      "Edit(infrastructure:*)",
       "Edit(CLAUDE.md)",
       "mcp__figma-developer-mcp__get_figma_data",
       "mcp__figma-developer-mcp__download_figma_images",
@@ -67,7 +60,11 @@
       "mcp__notion__fetch",
       "mcp__jira__getAccessibleAtlassianResources",
       "mcp__jira__searchJiraIssuesUsingJql",
-      "mcp__o3__o3-search"
+      "mcp__o3__o3-search",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run codegen:*)",
+      "Bash(npm run ts-check:*)",
+      "Bash(npx playwright test login.spec.ts --headed)"
     ],
     "deny": [
       "Bash(sudo:*)",
@@ -109,6 +106,13 @@
       "Bash(docker rm:*)",
       "Bash(docker compose down:*)",
       "Bash(docker compose stop:*)"
+    ],
+    "ask": [
+      "Bash(git push -u origin feat:*)",
+      "Bash(git push -u origin fix:*)",
+      "Bash(git push -u origin chore:*)",
+      "Bash(git push -u origin test:*)",
+      "Bash(git push -u origin docs:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -140,6 +144,17 @@
           {
             "type": "command",
             "command": "echo \"タスク完了通知です\" | logger -t claude-code"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit(**)|MultiEdit(**)|Write(**)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm run ts-check 2>&1 || echo 'TypeScript check failed'"
           }
         ]
       }
