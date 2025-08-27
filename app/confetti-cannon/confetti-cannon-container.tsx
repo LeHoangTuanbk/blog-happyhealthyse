@@ -107,8 +107,11 @@ export const ConfettiCannonContainer = () => {
 
         this.hero.addEventListener('mouseenter', (e: MouseEvent) => {
           gsap.set(this.elements.hand, { opacity: 1 })
-          this.xSetter(e.clientX, e.clientX)
-          this.ySetter(e.clientY, e.clientY)
+          // Force immediate position update
+          gsap.set(this.elements.hand, { x: e.clientX, y: e.clientY })
+          // Update setters for smooth tracking
+          this.xSetter(e.clientX)
+          this.ySetter(e.clientY)
         })
 
         this.hero.addEventListener('mouseleave', () => {
@@ -139,26 +142,48 @@ export const ConfettiCannonContainer = () => {
       initObserver() {
         if (!this.animationIsOk) return
 
-        if (ScrollTrigger.isTouch === 1) {
-          Observer.create({
-            target: this.elements.proxy,
-            type: 'touch',
-            onPress: (e: any) => {
-              const x = e.x || e.clientX || 0
-              const y = e.y || e.clientY || 0
-              this.createExplosion(x, y, 400)
-            },
-          })
-        } else {
-          Observer.create({
-            target: this.elements.proxy,
-            type: 'pointer',
-            onPress: (e: any) => this.startDrawing(e),
-            onDrag: (e: any) => this.isDrawing && this.updateDrawing(e),
-            onDragEnd: () => this.clearDrawing(),
-            onRelease: () => this.clearDrawing(),
-          })
-        }
+        // Support both touch and mouse/pointer events
+        Observer.create({
+          target: this.elements.proxy,
+          type: 'touch,pointer',
+          onPress: (e: any) => {
+            // Show hand on touch devices during drag
+            if (ScrollTrigger.isTouch === 1) {
+              gsap.set(this.elements.hand, {
+                opacity: 1,
+                x: e.x || e.clientX,
+                y: e.y || e.clientY,
+              })
+            }
+            this.startDrawing(e)
+          },
+          onDrag: (e: any) => {
+            if (this.isDrawing) {
+              // Update hand position on touch devices
+              if (ScrollTrigger.isTouch === 1) {
+                gsap.set(this.elements.hand, {
+                  x: e.x || e.clientX,
+                  y: e.y || e.clientY,
+                })
+              }
+              this.updateDrawing(e)
+            }
+          },
+          onDragEnd: () => {
+            // Hide hand on touch devices after drag
+            if (ScrollTrigger.isTouch === 1) {
+              gsap.set(this.elements.hand, { opacity: 0 })
+            }
+            this.clearDrawing()
+          },
+          onRelease: () => {
+            // Hide hand on touch devices after release
+            if (ScrollTrigger.isTouch === 1) {
+              gsap.set(this.elements.hand, { opacity: 0 })
+            }
+            this.clearDrawing()
+          },
+        })
       }
 
       startDrawing(e: any) {
@@ -170,14 +195,6 @@ export const ConfettiCannonContainer = () => {
         // Use viewport coordinates directly since hero is fixed full screen
         this.startX = e.x || e.clientX
         this.startY = e.y || e.clientY
-
-        // Debug: log coordinates for fine-tuning
-        console.log('Drag start:', {
-          eventX: e.x,
-          eventClientX: e.clientX,
-          startX: this.startX,
-          startY: this.startY,
-        })
 
         // Create line - adjust for SVG coordinates
         this.currentLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
@@ -258,12 +275,12 @@ export const ConfettiCannonContainer = () => {
           transformOrigin: 'center center',
         })
 
-        // Move & rotate hand
+        // Rotate hand only (position is handled in mousemove)
         gsap.to(this.elements.hand, {
           rotation: `${angle + -90}_short`,
           duration: 0.1,
           ease: 'none',
-          overwrite: true, // Override previous animations to prevent stuck rotation
+          overwrite: 'auto', // Only overwrite rotation, not position
         })
 
         // Update lastDistance immediately for every drag update
@@ -289,9 +306,6 @@ export const ConfettiCannonContainer = () => {
           img.style.left = `${x}px`
           img.style.top = `${y}px`
           img.style.zIndex = '4'
-
-          // Debug: log explosion position for comparison
-          if (i === 0) console.log('Explosion at:', { x, y, particleCount: count })
 
           this.hero.appendChild(img)
 
@@ -330,12 +344,6 @@ export const ConfettiCannonContainer = () => {
       clearDrawing() {
         if (!this.isDrawing) return
 
-        console.log('Explosion triggered at drag start position:', {
-          startX: this.startX,
-          startY: this.startY,
-          distance: this.lastDistance,
-        })
-
         // Ensure we have valid distance, use minimum 100 if no drag
         const explosionDistance = this.lastDistance || 100
         this.createExplosion(this.startX, this.startY, explosionDistance)
@@ -350,12 +358,11 @@ export const ConfettiCannonContainer = () => {
           ease: 'myWiggle',
           onComplete: () => {
             gsap.set(this.elements.rock, { opacity: 0 })
-            // Force reset hand rotation with clearProps to prevent stuck at 90°
-            gsap.set(this.elements.hand, {
-              rotation: 0,
-              clearProps: 'rotation',
-              overwrite: true,
-            })
+            // Reset rotation and recreate quickTo setters
+            gsap.set(this.elements.hand, { rotation: 0 })
+            // Recreate quickTo setters to ensure proper tracking after animation
+            this.xSetter = gsap.quickTo(this.elements.hand, 'x', { duration: 0.1 })
+            this.ySetter = gsap.quickTo(this.elements.hand, 'y', { duration: 0.1 })
             gsap.to(this.elements.instructions, { opacity: 1 })
             gsap.set(this.elements.drag, { opacity: 1 })
           },
