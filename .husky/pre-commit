@@ -1,1 +1,25 @@
-npx --no-install lint-staged
+#!/bin/sh
+
+# Get list of staged files
+STAGED_FILES=$(git diff --name-only --cached)
+
+# Check if any files are staged
+if [ -z "$STAGED_FILES" ]; then
+  echo "No files staged for commit"
+  exit 0
+fi
+
+# Check which directories have changes and run appropriate lint-staged
+HAS_APP_CHANGES=$(echo "$STAGED_FILES" | grep -E '^app/' || true)
+HAS_COMPONENTS_CHANGES=$(echo "$STAGED_FILES" | grep -E '^components/' || true)
+HAS_SHARED_CHANGES=$(echo "$STAGED_FILES" | grep -E '^shared/' || true)
+HAS_DATA_CHANGES=$(echo "$STAGED_FILES" | grep -E '^data/' || true)
+HAS_ROOT_CHANGES=$(echo "$STAGED_FILES" | grep -E '^\.' || true)
+
+# Run lint-staged if any relevant files changed
+if [ -n "$HAS_APP_CHANGES" ] || [ -n "$HAS_COMPONENTS_CHANGES" ] || [ -n "$HAS_SHARED_CHANGES" ] || [ -n "$HAS_DATA_CHANGES" ] || [ -n "$HAS_ROOT_CHANGES" ]; then
+  echo "🔍 Code changes detected --> running lint-staged..."
+  npm run lint-staged
+else
+  echo "✅ No code changes requiring linting"
+fi

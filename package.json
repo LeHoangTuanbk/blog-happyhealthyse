@@ -10,6 +10,7 @@
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir shared",
+    "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
   "dependencies": {
