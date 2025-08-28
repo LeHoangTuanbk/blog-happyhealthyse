@@ -13,6 +13,7 @@ import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics as AnalyticsVercel } from '@vercel/analytics/next'
+import { isProduction } from '@/shared/consts'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -108,8 +109,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
           </SectionContainer>
         </ThemeProviders>
-        <SpeedInsights />
-        <AnalyticsVercel />
+        {isProduction && (
+          <>
+            <SpeedInsights />
+            <AnalyticsVercel />
+          </>
+        )}
       </body>
     </html>
   )
