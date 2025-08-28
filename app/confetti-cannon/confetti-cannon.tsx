@@ -1,12 +1,7 @@
-// TODO: This is a work in progress. Will fix eslint errors later.
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-'use client';
-
 import { forwardRef } from 'react';
+import Image from 'next/image';
 
-type Props = {};
+type Props = object;
 
 export const ConfettiCannon = forwardRef<HTMLDivElement, Props>((_props, ref) => {
   return (
@@ -24,20 +19,29 @@ export const ConfettiCannon = forwardRef<HTMLDivElement, Props>((_props, ref) =>
             <div className="confetti-hero__flair w-full">
               {/* Hand cursor element */}
               <div className="confetti-hero__hand pointer-events-none fixed top-0 left-0 z-50 w-8 opacity-0">
-                <img
+                <Image
                   className="confetti-hero__drag absolute top-[-22px] right-0 z-20 w-[131%] max-w-[141%] opacity-100"
-                  src="https://assets.codepen.io/16327/hand-drag.png"
+                  src="/static/images/confetti-canon/hand-drag.png"
                   alt=""
+                  width={32}
+                  height={32}
+                  quality={100}
                 />
-                <img
+                <Image
                   className="confetti-hero__rock absolute top-[-22px] right-0 z-20 w-[131%] max-w-[141%] opacity-0"
-                  src="https://assets.codepen.io/16327/hand-rock.png"
+                  src="/static/images/confetti-canon/hand-rock.png"
                   alt=""
+                  width={32}
+                  height={32}
+                  quality={100}
                 />
-                <img
+                <Image
                   className="confetti-hero__handle absolute top-[-40px] right-0 left-0 w-full opacity-0"
-                  src="https://assets.codepen.io/16327/2D-circle.png"
+                  src="/static/images/confetti-canon/2D-circle.png"
                   alt=""
+                  width={32}
+                  height={32}
+                  quality={100}
                 />
                 <small className="absolute top-5 left-[-60%] w-[200%] text-xs text-white">
                   drag me
@@ -46,134 +50,261 @@ export const ConfettiCannon = forwardRef<HTMLDivElement, Props>((_props, ref) =>
 
               {/* Preload 3D shapes */}
               <div className="image-preload" aria-hidden="true">
-                <img
+                <Image
                   data-key="combo"
-                  src="https://assets.codepen.io/16327/3D-combo.png"
+                  src="/static/images/confetti-canon/3D-combo.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={66}
+                  height={66}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="cone"
-                  src="https://assets.codepen.io/16327/3D-cone.png"
+                  src="/static/images/confetti-canon/3D-cone.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={900}
+                  height={956}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="hoop"
-                  src="https://assets.codepen.io/16327/3D-hoop.png"
+                  src="/static/images/confetti-canon/3D-hoop.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={176}
+                  height={176}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="keyframe"
-                  src="https://assets.codepen.io/16327/3D-keyframe.png"
+                  src="/static/images/confetti-canon/3D-keyframe.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={48}
+                  height={48}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="semi"
-                  src="https://assets.codepen.io/16327/3D-semi.png"
+                  src="/static/images/confetti-canon/3D-semi.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={76}
+                  height={76}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="spiral"
-                  src="https://assets.codepen.io/16327/3D-spiral.png"
+                  src="/static/images/confetti-canon/3D-spiral.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={120}
+                  height={120}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="squish"
-                  src="https://assets.codepen.io/16327/3D-squish.png"
+                  src="/static/images/confetti-canon/3D-squish.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={1080}
+                  height={1132}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="triangle"
-                  src="https://assets.codepen.io/16327/3D-triangle.png"
+                  src="/static/images/confetti-canon/3D-triangle.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={1184}
+                  height={1048}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="tunnel"
-                  src="https://assets.codepen.io/16327/3D-tunnel.png"
+                  src="/static/images/confetti-canon/3D-tunnel.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={1352}
+                  height={1272}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="wat"
-                  src="https://assets.codepen.io/16327/3D-poly.png"
+                  src="/static/images/confetti-canon/3D-poly.png"
                   className="absolute -left-[9999px]"
-                  width="1"
-                  height="1"
+                  alt=""
+                  width={52}
+                  height={52}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
 
               {/* Preload explosion particles */}
               <div className="explosion-preload" aria-hidden="true">
-                <img
+                <Image
                   data-key="blue-circle"
-                  src="https://assets.codepen.io/16327/2D-circles.png"
+                  src="/static/images/confetti-canon/2D-circles.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={182}
+                  height={182}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="green-keyframe"
-                  src="https://assets.codepen.io/16327/2D-keyframe.png"
+                  src="/static/images/confetti-canon/2D-keyframe.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={170}
+                  height={170}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="orange-lightning"
-                  src="https://assets.codepen.io/16327/2D-lightning.png"
+                  src="/static/images/confetti-canon/2D-lightning.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={496}
+                  height={992}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="orange-star"
-                  src="https://assets.codepen.io/16327/2D-star.png"
+                  src="/static/images/confetti-canon/2D-star.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={66}
+                  height={66}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="purple-flower"
-                  src="https://assets.codepen.io/16327/2D-flower.png"
+                  src="/static/images/confetti-canon/2D-flower.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={224}
+                  height={224}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="cone"
-                  src="https://assets.codepen.io/16327/3D-cone.png"
+                  src="/static/images/confetti-canon/3D-cone.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={900}
+                  height={956}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="keyframe"
-                  src="https://assets.codepen.io/16327/3D-spiral.png"
+                  src="/static/images/confetti-canon/3D-spiral.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={120}
+                  height={120}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="spiral"
-                  src="https://assets.codepen.io/16327/3D-spiral.png"
+                  src="/static/images/confetti-canon/3D-spiral.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={120}
+                  height={120}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="tunnel"
-                  src="https://assets.codepen.io/16327/3D-tunnel.png"
+                  src="/static/images/confetti-canon/3D-tunnel.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={1352}
+                  height={1272}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="hoop"
-                  src="https://assets.codepen.io/16327/3D-hoop.png"
+                  src="/static/images/confetti-canon/3D-hoop.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={176}
+                  height={176}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
-                <img
+                <Image
                   data-key="semi"
-                  src="https://assets.codepen.io/16327/3D-semi.png"
+                  src="/static/images/confetti-canon/3D-semi.png"
                   className="absolute -left-[9999px]"
+                  alt=""
+                  width={76}
+                  height={76}
+                  quality={100}
+                  priority
+                  unoptimized
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
             </div>
