@@ -1,7 +1,7 @@
-import { genPageMetadata } from 'app/seo'
+import { genPageMetadata } from 'app/seo';
 
-export const metadata = genPageMetadata({ title: 'List 100' })
-import { list100, updatedDateAt } from './list-100'
+export const metadata = genPageMetadata({ title: 'List 100' });
+import { list100, updatedDateAt } from './list-100';
 
 export default function List100() {
   return (
@@ -29,15 +29,15 @@ export default function List100() {
               const getStatusColor = (status: string) => {
                 switch (status) {
                   case '✓':
-                    return 'text-green-500'
+                    return 'text-green-500';
                   case '✗':
-                    return 'text-red-500'
+                    return 'text-red-500';
                   case '~':
-                    return 'text-yellow-500'
+                    return 'text-yellow-500';
                   default:
-                    return 'text-gray-500'
+                    return 'text-gray-500';
                 }
-              }
+              };
 
               return (
                 <div key={index} className="flex space-x-2 sm:space-x-3">
@@ -49,7 +49,7 @@ export default function List100() {
                   </span>
                   <span className="flex-1 leading-6">{item.title}</span>
                 </div>
-              )
+              );
             })}
             <div className="flex space-x-2 sm:space-x-3">
               <span className="w-6 flex-shrink-0 text-right text-sm leading-6 text-gray-500 sm:w-8 dark:text-gray-400">
@@ -62,5 +62,5 @@ export default function List100() {
         </div>
       </div>
     </div>
-  )
+  );
 }

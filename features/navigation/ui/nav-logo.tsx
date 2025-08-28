@@ -1,6 +1,6 @@
-import { Link } from '@/shared/ui/components'
-import Image from 'next/image'
-import siteMetadata from '@/shared/config/site'
+import { Link } from '@/shared/ui/components';
+import Image from 'next/image';
+import siteMetadata from '@/shared/config/site';
 
 export const NavLogo = () => {
   return (
@@ -18,5 +18,5 @@ export const NavLogo = () => {
         )}
       </div>
     </Link>
-  )
-}
+  );
+};

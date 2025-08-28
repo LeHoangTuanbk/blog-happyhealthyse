@@ -1,13 +1,13 @@
 interface BlogSearchProps {
-  searchValue: string
-  onSearchChange: (value: string) => void
-  placeholder?: string
+  searchValue: string;
+  onSearchChange: (value: string) => void;
+  placeholder?: string;
 }
 
-export const BlogSearch = ({ 
-  searchValue, 
-  onSearchChange, 
-  placeholder = "Search articles" 
+export const BlogSearch = ({
+  searchValue,
+  onSearchChange,
+  placeholder = 'Search articles',
 }: BlogSearchProps) => {
   return (
     <div className="relative max-w-lg">
@@ -37,5 +37,5 @@ export const BlogSearch = ({
         />
       </svg>
     </div>
-  )
-}
+  );
+};

@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import siteMetadata from '@/shared/config/site'
+import { useState } from 'react';
+import siteMetadata from '@/shared/config/site';
 
 export const useSearch = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  
-  const searchConfig = siteMetadata.search
-  const isSearchEnabled = searchConfig && 
-    (searchConfig.provider === 'algolia' || searchConfig.provider === 'kbar')
-  
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const searchConfig = siteMetadata.search;
+  const isSearchEnabled =
+    searchConfig && (searchConfig.provider === 'algolia' || searchConfig.provider === 'kbar');
+
   const openSearch = () => {
-    setIsSearchOpen(true)
-  }
-  
+    setIsSearchOpen(true);
+  };
+
   const closeSearch = () => {
-    setIsSearchOpen(false)
-  }
-  
+    setIsSearchOpen(false);
+  };
+
   const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen)
-  }
+    setIsSearchOpen(!isSearchOpen);
+  };
 
   return {
     isSearchOpen,
@@ -28,6 +28,6 @@ export const useSearch = () => {
     searchProvider: searchConfig?.provider,
     openSearch,
     closeSearch,
-    toggleSearch
-  }
-}
+    toggleSearch,
+  };
+};

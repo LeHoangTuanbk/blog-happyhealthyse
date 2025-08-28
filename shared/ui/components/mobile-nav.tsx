@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { Fragment, useState, useEffect, useRef } from 'react'
-import { Link } from './link'
-import headerNavLinks from '@/shared/config/navigation'
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { Fragment, useState, useEffect, useRef } from 'react';
+import { Link } from './link';
+import headerNavLinks from '@/shared/config/navigation';
 
 export const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false)
-  const navRef = useRef(null)
+  const [navShow, setNavShow] = useState(false);
+  const navRef = useRef(null);
 
   const onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
-        enableBodyScroll(navRef.current)
+        enableBodyScroll(navRef.current);
       } else {
         // Prevent scrolling
-        disableBodyScroll(navRef.current)
+        disableBodyScroll(navRef.current);
       }
-      return !status
-    })
-  }
+      return !status;
+    });
+  };
 
   useEffect(() => {
-    return clearAllBodyScrollLocks
-  })
+    return clearAllBodyScrollLocks;
+  });
 
   return (
     <>
@@ -102,5 +102,5 @@ export const MobileNav = () => {
         </Dialog>
       </Transition>
     </>
-  )
-}
+  );
+};

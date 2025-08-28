@@ -1,26 +1,26 @@
-import { ReactNode } from 'react'
-import { Image } from '@/shared/ui/components'
-import Bleed from 'pliny/ui/Bleed'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
-import { Comments } from '@/shared/ui/components'
-import { Link } from '@/shared/ui/components'
-import { PageTitle } from '@/shared/ui/components'
-import { SectionContainer } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import { ScrollTopAndComment } from '@/shared/ui/components'
+import { ReactNode } from 'react';
+import { Image } from '@/shared/ui/components';
+import Bleed from 'pliny/ui/Bleed';
+import { CoreContent } from 'pliny/utils/contentlayer';
+import type { Blog } from 'contentlayer/generated';
+import { Comments } from '@/shared/ui/components';
+import { Link } from '@/shared/ui/components';
+import { PageTitle } from '@/shared/ui/components';
+import { SectionContainer } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import { ScrollTopAndComment } from '@/shared/ui/components';
 
 interface LayoutProps {
-  content: CoreContent<Blog>
-  children: ReactNode
-  next?: { path: string; title: string }
-  prev?: { path: string; title: string }
+  content: CoreContent<Blog>;
+  children: ReactNode;
+  next?: { path: string; title: string };
+  prev?: { path: string; title: string };
 }
 
 export default function PostMinimal({ content, next, prev, children }: LayoutProps) {
-  const { slug, title, images } = content
+  const { slug, title, images } = content;
   const displayImage =
-    images && images.length > 0 ? images[0] : 'https://picsum.photos/seed/picsum/800/400'
+    images && images.length > 0 ? images[0] : 'https://picsum.photos/seed/picsum/800/400';
 
   return (
     <SectionContainer>
@@ -74,5 +74,5 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }

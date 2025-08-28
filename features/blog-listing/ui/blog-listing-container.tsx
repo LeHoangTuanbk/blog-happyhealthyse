@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { formatDate } from 'pliny/utils/formatDate'
-import { Link } from '@/shared/ui/components'
-import { Tag } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import { BlogSearch } from './blog-search'
-import { BlogPagination } from './blog-pagination'
-import { useBlogListing } from '../lib/use-blog-listing'
-import type { BlogListProps } from '@/entities/blog'
+import { formatDate } from 'pliny/utils/formatDate';
+import { Link } from '@/shared/ui/components';
+import { Tag } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import { BlogSearch } from './blog-search';
+import { BlogPagination } from './blog-pagination';
+import { useBlogListing } from '../lib/use-blog-listing';
+import type { BlogListProps } from '@/entities/blog';
 
 export const BlogListingContainer = ({
   posts,
@@ -17,8 +17,8 @@ export const BlogListingContainer = ({
 }: BlogListProps) => {
   const { searchValue, setSearchValue, displayPosts, hasResults } = useBlogListing({
     posts,
-    initialDisplayPosts
-  })
+    initialDisplayPosts,
+  });
 
   return (
     <>
@@ -27,7 +27,7 @@ export const BlogListingContainer = ({
           <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             {title}
           </h1>
-          <BlogSearch 
+          <BlogSearch
             searchValue={searchValue}
             onSearchChange={setSearchValue}
             placeholder="Search articles"
@@ -36,7 +36,7 @@ export const BlogListingContainer = ({
         <ul>
           {!hasResults && 'No posts found.'}
           {displayPosts.map((post) => {
-            const { path, date, title, summary, tags } = post
+            const { path, date, title, summary, tags } = post;
             return (
               <li key={path} className="py-4">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
@@ -54,7 +54,9 @@ export const BlogListingContainer = ({
                         </Link>
                       </h3>
                       <div className="flex flex-wrap">
-                        {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                        {tags?.map((tag) => (
+                          <Tag key={tag} text={tag} />
+                        ))}
                       </div>
                     </div>
                     <div className="prose max-w-none text-gray-500 dark:text-gray-400">
@@ -63,16 +65,13 @@ export const BlogListingContainer = ({
                   </div>
                 </article>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
       {pagination && pagination.totalPages > 1 && !searchValue && (
-        <BlogPagination 
-          currentPage={pagination.currentPage} 
-          totalPages={pagination.totalPages} 
-        />
+        <BlogPagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
       )}
     </>
-  )
-}
+  );
+};

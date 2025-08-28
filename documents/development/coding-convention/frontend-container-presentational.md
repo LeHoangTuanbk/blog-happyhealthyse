@@ -21,7 +21,7 @@ Example:
 
 export const LoginPageContainer = () => {
   // ...
-}
+};
 ```
 
 #### Presentational components don't have `Container` in their names
@@ -33,7 +33,7 @@ Example 1:
 
 export const LoginPage = () => {
   // ...
-}
+};
 ```
 
 Example 2:
@@ -43,7 +43,7 @@ Example 2:
 
 export const DefaultButton = () => {
   // ...
-}
+};
 ```
 
 #### Both Container and Presentational components can be used within Container
@@ -52,8 +52,8 @@ Example 1: Using only Presentational components
 
 ```tsx
 export const LoginPageContainer = () => {
-  return <LoginPage />
-}
+  return <LoginPage />;
+};
 ```
 
 Example 2:
@@ -65,8 +65,8 @@ export const LoginPageContainer = () => {
       <LoginPage headerSlot={<HeaderContainer />} />
       <ConfirmExitModalContainer />
     </>
-  )
-}
+  );
+};
 ```
 
 Basically, limit the Presentational components that can be used within Container to one (`LoginPageContainer` should only use `LoginPage`). This is because Container's responsibility is not UI layout composition, but to express dependencies on Presentational components through imports. Place unnecessary Presentational components in Presentational components.
@@ -82,8 +82,8 @@ export const LoginPage = () => {
       <Text>Login</Text>
       <DefaultButton />
     </div>
-  )
-}
+  );
+};
 ```
 
 #### Business logic should only be written in Container
@@ -93,40 +93,40 @@ Example:
 ```tsx
 // NG ❌
 export const LoginPage = () => {
-  const [loginMutation] = useLoginMutation()
+  const [loginMutation] = useLoginMutation();
 
-  const setAuthTokens = useSetAtom(authTokensAtom)
+  const setAuthTokens = useSetAtom(authTokensAtom);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (data: LoginFormSchema) => {
     // ...
-  }
+  };
 
   return (
     <div>
       ...
       <Button onClick={handleSubmit}>Login</Button>
     </div>
-  )
-}
+  );
+};
 ```
 
 ```tsx
 // OK ✅
 export const LoginPageContainer = () => {
-  const [loginMutation] = useLoginMutation()
+  const [loginMutation] = useLoginMutation();
 
-  const setAuthTokens = useSetAtom(authTokensAtom)
+  const setAuthTokens = useSetAtom(authTokensAtom);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (data: LoginFormSchema) => {
     // ...
-  }
+  };
 
-  return <LoginPage onSubmit={handleSubmit} />
-}
+  return <LoginPage onSubmit={handleSubmit} />;
+};
 ```
 
 ### UI-related things should basically be written in Presentational components
@@ -171,8 +171,8 @@ Example:
 // File name: `login-page.tsx`
 
 type Props = {
-  headerSlot: React.ReactNode
-}
+  headerSlot: React.ReactNode;
+};
 
 export const LoginPage = ({ headerSlot }: Props) => {
   return (
@@ -180,16 +180,16 @@ export const LoginPage = ({ headerSlot }: Props) => {
       {headerSlot}
       ...
     </div>
-  )
-}
+  );
+};
 ```
 
 ```tsx
 // File name: `login-page-container.tsx`
 
 export const LoginPageContainer = () => {
-  return <LoginPage headerSlot={<HeaderContainer />} />
-}
+  return <LoginPage headerSlot={<HeaderContainer />} />;
+};
 ```
 
 In the above example, `HeaderContainer` has UI necessary for the page, but since the component is a Container, it cannot be used directly within `LoginPage`. In this case, it can be resolved by passing it as a slot prop.
@@ -205,7 +205,7 @@ Example:
 
 export const FirstLoginPage = () => {
   // ...
-}
+};
 ```
 
 Page components are placed at the top level that composes the UI.
@@ -218,14 +218,14 @@ Example:
 // File name: `usage-sheet-page-guard.tsx`
 
 export const UsageSheetPageGuard = () => {
-  const { careReceiverId } = useParams<ParamParseKey<typeof paths.careReceiver.usageSheet>>()
+  const { careReceiverId } = useParams<ParamParseKey<typeof paths.careReceiver.usageSheet>>();
 
   if (!careReceiverId) {
-    return <Navigate to={paths.careReceiver.index} />
+    return <Navigate to={paths.careReceiver.index} />;
   }
 
-  return <UsageSheetPageContainer careReceiverId={careReceiverId} />
-}
+  return <UsageSheetPageContainer careReceiverId={careReceiverId} />;
+};
 ```
 
 The component name includes `Guard`.

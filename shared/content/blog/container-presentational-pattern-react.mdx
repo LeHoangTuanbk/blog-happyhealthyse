@@ -13,6 +13,7 @@ layout: 'PostLayout'
 Container/Presentational Pattern (còn gọi là Smart/Dumb Components) là một trong những design patterns phổ biến nhất trong React. Pattern này được Dan Abramov (tác giả Redux) giới thiệu và đã trở thành một cách tiếp cận chuẩn để tổ chức code React.
 
 **Ý tưởng cốt lõi:** Tách biệt các component thành hai loại chính:
+
 - **Container Components** (Smart): Quản lý logic, state, và side effects
 - **Presentational Components** (Dumb): Chỉ tập trung vào việc hiển thị UI
 
@@ -31,15 +32,17 @@ Container/Presentational Pattern (còn gọi là Smart/Dumb Components) là mộ
 ### Presentational Components
 
 **Đặc điểm:**
+
 - Chỉ nhận props và render UI
 - Không có local state (trước Hooks) hoặc chỉ có UI state đơn giản
 - Không thực hiện side effects
 - Thường là functional components
 - Có thể chứa cả Presentational và Container components con
 
-### Container Components  
+### Container Components
 
 **Đặc điểm:**
+
 - Cung cấp data và behavior cho Presentational components
 - Thường có state và lifecycle methods
 - Gọi API, xử lý side effects
@@ -87,11 +90,11 @@ interface TodoItemProps {
   onEdit: (id: string, newText: string) => void;
 }
 
-export const TodoItem = ({ 
-  todo, 
-  onToggle, 
-  onDelete, 
-  onEdit 
+export const TodoItem = ({
+  todo,
+  onToggle,
+  onDelete,
+  onEdit
 }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
@@ -120,7 +123,7 @@ export const TodoItem = ({
         onChange={() => onToggle(todo.id)}
         className="todo-checkbox"
       />
-      
+
       {isEditing ? (
         <input
           type="text"
@@ -132,14 +135,14 @@ export const TodoItem = ({
           autoFocus
         />
       ) : (
-        <span 
+        <span
           className="todo-text"
           onDoubleClick={() => setIsEditing(true)}
         >
           {todo.text}
         </span>
       )}
-      
+
       <div className="todo-actions">
         <button
           onClick={handleEdit}
@@ -148,7 +151,7 @@ export const TodoItem = ({
         >
           {isEditing ? '✓' : '✏️'}
         </button>
-        
+
         <button
           onClick={() => onDelete(todo.id)}
           className="delete-btn"
@@ -221,8 +224,8 @@ interface TodoFormProps {
   isLoading?: boolean;
 }
 
-export const TodoForm = ({ 
-  onSubmit, 
+export const TodoForm = ({
+  onSubmit,
   placeholder = "Thêm todo mới...",
   buttonText = "Thêm",
   isLoading = false
@@ -231,9 +234,9 @@ export const TodoForm = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!text.trim()) return;
-    
+
     onSubmit({ text: text.trim() });
     setText('');
   };
@@ -248,9 +251,9 @@ export const TodoForm = ({
         disabled={isLoading}
         className="todo-input"
       />
-      
-      <button 
-        type="submit" 
+
+      <button
+        type="submit"
         disabled={!text.trim() || isLoading}
         className="submit-btn"
       >
@@ -273,7 +276,7 @@ interface TodoStatsProps {
 }
 
 export const TodoStats = ({ stats, className }: TodoStatsProps) => {
-  const completionRate = stats.total > 0 
+  const completionRate = stats.total > 0
     ? Math.round((stats.completed / stats.total) * 100)
     : 0;
 
@@ -284,26 +287,26 @@ export const TodoStats = ({ stats, className }: TodoStatsProps) => {
           <span className="stat-number">{stats.total}</span>
           <span className="stat-label">Tổng cộng</span>
         </div>
-        
+
         <div className="stat-item">
           <span className="stat-number">{stats.completed}</span>
           <span className="stat-label">Hoàn thành</span>
         </div>
-        
+
         <div className="stat-item">
           <span className="stat-number">{stats.pending}</span>
           <span className="stat-label">Chưa xong</span>
         </div>
-        
+
         <div className="stat-item">
           <span className="stat-number">{completionRate}%</span>
           <span className="stat-label">Tiến độ</span>
         </div>
       </div>
-      
+
       <div className="progress-bar">
-        <div 
-          className="progress-fill" 
+        <div
+          className="progress-fill"
           style={{ width: `${completionRate}%` }}
         />
       </div>
@@ -325,46 +328,44 @@ export const useTodos = (initialTodos: Todo[] = []) => {
 
   const addTodo = useCallback(async (data: TodoFormData) => {
     setIsLoading(true);
-    
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     const newTodo: Todo = {
       id: Date.now().toString(),
       text: data.text,
       completed: false,
       createdAt: new Date(),
     };
-    
-    setTodos(prev => [newTodo, ...prev]);
+
+    setTodos((prev) => [newTodo, ...prev]);
     setIsLoading(false);
   }, []);
 
   const toggleTodo = useCallback((id: string) => {
-    setTodos(prev => prev.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+    );
   }, []);
 
   const deleteTodo = useCallback((id: string) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }, []);
 
   const editTodo = useCallback((id: string, newText: string) => {
-    setTodos(prev => prev.map(todo =>
-      todo.id === id ? { ...todo, text: newText } : todo
-    ));
+    setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo)));
   }, []);
 
   const clearCompleted = useCallback(() => {
-    setTodos(prev => prev.filter(todo => !todo.completed));
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
   }, []);
 
   const stats: TodoStats = useMemo(() => {
     const total = todos.length;
-    const completed = todos.filter(todo => todo.completed).length;
+    const completed = todos.filter((todo) => todo.completed).length;
     const pending = total - completed;
-    
+
     return { total, completed, pending };
   }, [todos]);
 
@@ -397,9 +398,9 @@ interface TodoAppContainerProps {
   title?: string;
 }
 
-export const TodoAppContainer = ({ 
+export const TodoAppContainer = ({
   initialTodos,
-  title = "My Todo App" 
+  title = "My Todo App"
 }: TodoAppContainerProps) => {
   const { todos, stats, isLoading, actions } = useTodos(initialTodos);
 
@@ -411,11 +412,11 @@ export const TodoAppContainer = ({
       </header>
 
       <main className="app-main">
-        <TodoForm 
+        <TodoForm
           onSubmit={actions.addTodo}
           isLoading={isLoading}
         />
-        
+
         <TodoList
           todos={todos}
           onToggle={actions.toggleTodo}
@@ -426,7 +427,7 @@ export const TodoAppContainer = ({
 
       <footer className="app-footer">
         {stats.completed > 0 && (
-          <button 
+          <button
             onClick={actions.clearCompleted}
             className="clear-btn"
           >
@@ -454,7 +455,7 @@ const App = () => {
       createdAt: new Date(),
     },
     {
-      id: '2', 
+      id: '2',
       text: 'Viết blog về Container/Presentational',
       completed: true,
       createdAt: new Date(),
@@ -463,7 +464,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <TodoAppContainer 
+      <TodoAppContainer
         initialTodos={initialTodos}
         title="Todo App với Container/Presentational Pattern"
       />
@@ -487,7 +488,7 @@ const TodoContext = createContext<ReturnType<typeof useTodos> | null>(null);
 
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   const todoState = useTodos();
-  
+
   return (
     <TodoContext.Provider value={todoState}>
       {children}
@@ -532,7 +533,7 @@ const mockTodo = {
 const mockProps = {
   todo: mockTodo,
   onToggle: jest.fn(),
-  onDelete: jest.fn(), 
+  onDelete: jest.fn(),
   onEdit: jest.fn(),
 };
 
@@ -548,19 +549,19 @@ describe('TodoItem', () => {
 
   it('calls onToggle when checkbox is clicked', () => {
     render(<TodoItem {...mockProps} />);
-    
+
     const checkbox = screen.getByRole('checkbox');
     fireEvent.click(checkbox);
-    
+
     expect(mockProps.onToggle).toHaveBeenCalledWith('1');
   });
 
   it('enters edit mode on double click', () => {
     render(<TodoItem {...mockProps} />);
-    
+
     const textElement = screen.getByText('Test todo');
     fireEvent.doubleClick(textElement);
-    
+
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 });
@@ -587,12 +588,14 @@ describe('useTodos', () => {
   });
 
   it('should toggle todo completion', () => {
-    const initialTodos = [{
-      id: '1',
-      text: 'Test',
-      completed: false,
-      createdAt: new Date(),
-    }];
+    const initialTodos = [
+      {
+        id: '1',
+        text: 'Test',
+        completed: false,
+        createdAt: new Date(),
+      },
+    ];
 
     const { result } = renderHook(() => useTodos(initialTodos));
 
@@ -608,6 +611,7 @@ describe('useTodos', () => {
 ## Khi nào nên sử dụng pattern này?
 
 ### ✅ Nên sử dụng khi:
+
 - Component có logic phức tạp (API calls, state management)
 - Cần tái sử dụng UI component với data khác nhau
 - Team có nhiều người (tách biệt công việc UI/Logic)
@@ -615,6 +619,7 @@ describe('useTodos', () => {
 - Dự án lớn, cần maintainable architecture
 
 ### ❌ Không nên sử dụng khi:
+
 - Component đơn giản, chỉ hiển thị static content
 - Dự án nhỏ, không cần over-engineering
 - Logic và UI quá gắn liền nhau
@@ -630,7 +635,7 @@ Với sự ra đời của React Hooks, pattern này đã được "soft depreca
 // Thay vì Container component, sử dụng custom hook
 const TodoApp = () => {
   const { todos, actions } = useTodos();
-  
+
   return (
     <div>
       <TodoForm onSubmit={actions.addTodo} />
@@ -655,7 +660,8 @@ const TodoApp = () => (
 ## Kết luận
 
 Container/Presentational Pattern vẫn là một pattern hữu ích trong React, đặc biệt cho:
-- **Team lớn** cần tách biệt trách nhiệm rõ ràng  
+
+- **Team lớn** cần tách biệt trách nhiệm rõ ràng
 - **Enterprise applications** cần kiến trúc ổn định
 - **Design systems** cần component tái sử dụng cao
 

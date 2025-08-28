@@ -1,6 +1,6 @@
-import { AlgoliaButton } from 'pliny/search/AlgoliaButton'
-import { KBarButton } from 'pliny/search/KBarButton'
-import siteMetadata from '@/shared/config/site'
+import { AlgoliaButton } from 'pliny/search/AlgoliaButton';
+import { KBarButton } from 'pliny/search/KBarButton';
+import siteMetadata from '@/shared/config/site';
 
 export const SearchButton = () => {
   if (
@@ -8,7 +8,7 @@ export const SearchButton = () => {
     (siteMetadata.search.provider === 'algolia' || siteMetadata.search.provider === 'kbar')
   ) {
     const SearchButtonWrapper =
-      siteMetadata.search.provider === 'algolia' ? AlgoliaButton : KBarButton
+      siteMetadata.search.provider === 'algolia' ? AlgoliaButton : KBarButton;
 
     return (
       <SearchButtonWrapper aria-label="Search">
@@ -27,6 +27,6 @@ export const SearchButton = () => {
           />
         </svg>
       </SearchButtonWrapper>
-    )
+    );
   }
-}
+};

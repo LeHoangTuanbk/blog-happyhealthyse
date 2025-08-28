@@ -1,16 +1,16 @@
-import { Inter } from 'next/font/google'
-import { SectionContainer } from './section-container'
-import { Footer } from './footer'
-import { ReactNode } from 'react'
-import { Header } from './header'
+import { Inter } from 'next/font/google';
+import { SectionContainer } from './section-container';
+import { Footer } from './footer';
+import { ReactNode } from 'react';
+import { Header } from './header';
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const inter = Inter({
   subsets: ['latin'],
-})
+});
 
 export const LayoutWrapper = ({ children }: Props) => {
   return (
@@ -21,5 +21,5 @@ export const LayoutWrapper = ({ children }: Props) => {
         <Footer />
       </div>
     </SectionContainer>
-  )
-}
+  );
+};

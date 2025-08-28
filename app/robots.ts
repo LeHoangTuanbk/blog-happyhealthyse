@@ -1,7 +1,7 @@
-import { MetadataRoute } from 'next'
-import siteMetadata from '@/shared/config/site'
+import { MetadataRoute } from 'next';
+import siteMetadata from '@/shared/config/site';
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,5 +11,5 @@ export default function robots(): MetadataRoute.Robots {
     },
     sitemap: `${siteMetadata.siteUrl}/sitemap.xml`,
     host: siteMetadata.siteUrl,
-  }
+  };
 }

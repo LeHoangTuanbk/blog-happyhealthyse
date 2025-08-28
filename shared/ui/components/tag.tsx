@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { slug } from 'github-slugger'
+import Link from 'next/link';
+import { slug } from 'github-slugger';
 
 type Props = {
-  text: string
-}
+  text: string;
+};
 
 export const Tag = ({ text }: Props) => {
   return (
@@ -13,5 +13,5 @@ export const Tag = ({ text }: Props) => {
     >
       {text.split(' ').join('-')}
     </Link>
-  )
-}
+  );
+};

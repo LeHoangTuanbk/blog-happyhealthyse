@@ -1,22 +1,22 @@
 type Project = {
-  title: string
-  description: string
-  href?: string
-  imgSrc?: string
-}
+  title: string;
+  description: string;
+  href?: string;
+  imgSrc?: string;
+};
 
 const projectsData: Project[] = [
   {
     title: 'Sample Project 1',
     description: 'A sample project to demonstrate the structure',
     href: '#',
-    imgSrc: '/static/images/logo.png'
+    imgSrc: '/static/images/logo.png',
   },
   {
-    title: 'Sample Project 2', 
+    title: 'Sample Project 2',
     description: 'Another sample project',
-    href: '#'
-  }
-]
+    href: '#',
+  },
+];
 
-export default projectsData
+export default projectsData;

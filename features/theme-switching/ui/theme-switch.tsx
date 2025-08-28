@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { useTheme } from '../lib/use-theme'
+import { useTheme } from '../lib/use-theme';
 
 export const ThemeSwitch = () => {
-  const { resolvedTheme, toggleTheme } = useTheme()
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   return (
     <button
@@ -28,5 +28,5 @@ export const ThemeSwitch = () => {
         )}
       </svg>
     </button>
-  )
-}
+  );
+};

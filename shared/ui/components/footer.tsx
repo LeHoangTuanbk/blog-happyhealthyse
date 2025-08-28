@@ -1,5 +1,5 @@
-import { Link } from './link'
-import siteMetadata from '@/shared/config/site'
+import { Link } from './link';
+import siteMetadata from '@/shared/config/site';
 
 export const Footer = () => {
   return (
@@ -22,5 +22,5 @@ export const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};

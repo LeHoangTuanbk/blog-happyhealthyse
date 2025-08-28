@@ -1,20 +1,20 @@
 // Types
-export type { Blog, BlogPost, BlogListProps, PaginationProps, BlogMetadata } from './model/types'
+export type { Blog, BlogPost, BlogListProps, PaginationProps, BlogMetadata } from './model/types';
 
 // API
 export {
   getBlogPosts,
-  getBlogPostBySlug, 
+  getBlogPostBySlug,
   getPublishedPosts,
   getPostsByTag,
-  getPaginatedPosts
-} from './api/blog-api'
+  getPaginatedPosts,
+} from './api/blog-api';
 
-// Utils  
+// Utils
 export {
   formatBlogDate,
   createBlogSlug,
   getBlogEditUrl,
   getBlogDiscussUrl,
-  filterPostsBySearch
-} from './lib/utils'
+  filterPostsBySearch,
+} from './lib/utils';

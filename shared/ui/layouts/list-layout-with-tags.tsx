@@ -1,37 +1,37 @@
-'use client'
+'use client';
 
-import { usePathname } from 'next/navigation'
-import { slug } from 'github-slugger'
-import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
-import { Link } from '@/shared/ui/components'
-import { Tag } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import tagData from 'app/tag-data.json'
+import { usePathname } from 'next/navigation';
+import { slug } from 'github-slugger';
+import { formatDate } from 'pliny/utils/formatDate';
+import { CoreContent } from 'pliny/utils/contentlayer';
+import type { Blog } from 'contentlayer/generated';
+import { Link } from '@/shared/ui/components';
+import { Tag } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import tagData from 'app/tag-data.json';
 
 // TODO: Refactor type and component to use the new pagination component
 interface PaginationProps {
-  totalPages: number
-  currentPage: number
+  totalPages: number;
+  currentPage: number;
 }
 interface ListLayoutProps {
-  posts: CoreContent<Blog>[]
-  title: string
-  initialDisplayPosts?: CoreContent<Blog>[]
-  pagination?: PaginationProps
+  posts: CoreContent<Blog>[];
+  title: string;
+  initialDisplayPosts?: CoreContent<Blog>[];
+  pagination?: PaginationProps;
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
-  const pathname = usePathname()
-  const segments = pathname.split('/')
-  const lastSegment = segments[segments.length - 1]
+  const pathname = usePathname();
+  const segments = pathname.split('/');
+  const lastSegment = segments[segments.length - 1];
   const basePath = pathname
     .replace(/^\//, '') // Remove leading slash
     .replace(/\/page\/\d+\/?$/, '') // Remove any trailing /page
-    .replace(/\/$/, '') // Remove trailing slash
-  const prevPage = currentPage - 1 > 0
-  const nextPage = currentPage + 1 <= totalPages
+    .replace(/\/$/, ''); // Remove trailing slash
+  const prevPage = currentPage - 1 > 0;
+  const nextPage = currentPage + 1 <= totalPages;
 
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
@@ -64,7 +64,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         )}
       </nav>
     </div>
-  )
+  );
 }
 
 export default function ListLayoutWithTags({
@@ -73,12 +73,12 @@ export default function ListLayoutWithTags({
   initialDisplayPosts = [],
   pagination,
 }: ListLayoutProps) {
-  const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const pathname = usePathname();
+  const tagCounts = tagData as Record<string, number>;
+  const tagKeys = Object.keys(tagCounts);
+  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a]);
 
-  const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
+  const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts;
 
   return (
     <>
@@ -119,7 +119,7 @@ export default function ListLayoutWithTags({
                         </Link>
                       )}
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
@@ -127,7 +127,7 @@ export default function ListLayoutWithTags({
           <div>
             <ul className="flex flex-col space-y-5">
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags } = post
+                const { path, date, title, summary, tags } = post;
                 return (
                   <li key={path}>
                     <article className="flex flex-col space-y-2 rounded-lg border border-gray-200/60 bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl xl:space-y-0 dark:border-gray-700/60 dark:bg-gray-900/70 dark:text-gray-300">
@@ -158,7 +158,7 @@ export default function ListLayoutWithTags({
                       </div>
                     </article>
                   </li>
-                )
+                );
               })}
             </ul>
             {pagination && pagination.totalPages > 1 && (
@@ -168,5 +168,5 @@ export default function ListLayoutWithTags({
         </div>
       </div>
     </>
-  )
+  );
 }

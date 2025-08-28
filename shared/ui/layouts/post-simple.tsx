@@ -1,23 +1,23 @@
-import { ReactNode } from 'react'
-import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
-import { Comments } from '@/shared/ui/components'
-import { Link } from '@/shared/ui/components'
-import { PageTitle } from '@/shared/ui/components'
-import { SectionContainer } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import { ScrollTopAndComment } from '@/shared/ui/components'
+import { ReactNode } from 'react';
+import { formatDate } from 'pliny/utils/formatDate';
+import { CoreContent } from 'pliny/utils/contentlayer';
+import type { Blog } from 'contentlayer/generated';
+import { Comments } from '@/shared/ui/components';
+import { Link } from '@/shared/ui/components';
+import { PageTitle } from '@/shared/ui/components';
+import { SectionContainer } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import { ScrollTopAndComment } from '@/shared/ui/components';
 
 interface LayoutProps {
-  content: CoreContent<Blog>
-  children: ReactNode
-  next?: { path: string; title: string }
-  prev?: { path: string; title: string }
+  content: CoreContent<Blog>;
+  children: ReactNode;
+  next?: { path: string; title: string };
+  prev?: { path: string; title: string };
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
-  const { path, slug, date, title } = content
+  const { path, slug, date, title } = content;
 
   return (
     <SectionContainer>
@@ -78,5 +78,5 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }
