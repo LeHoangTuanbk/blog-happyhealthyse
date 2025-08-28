@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { Link } from '@/shared/ui/components'
-import { useNavigation } from '../lib/use-navigation'
+import { Link } from '@/shared/ui/components';
+import { useNavigation } from '../lib/use-navigation';
 
 export const DesktopNav = () => {
-  const { navLinks } = useNavigation()
-  
+  const { navLinks } = useNavigation();
+
   return (
     <div className="no-scrollbar hidden max-w-40 items-center gap-x-4 overflow-x-auto sm:flex md:max-w-72 lg:max-w-96">
       {navLinks.map((link) => (
@@ -18,5 +18,5 @@ export const DesktopNav = () => {
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};

@@ -1,25 +1,25 @@
-import '@/shared/ui/styles/tailwind.css'
-import 'pliny/search/algolia.css'
-import 'remark-github-blockquote-alert/alert.css'
+import '@/shared/ui/styles/tailwind.css';
+import 'pliny/search/algolia.css';
+import 'remark-github-blockquote-alert/alert.css';
 
-import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
-import { Header } from '@/shared/ui/components'
-import { SectionContainer } from '@/shared/ui/components'
-import { Footer } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Analytics as AnalyticsVercel } from '@vercel/analytics/next'
-import { isProduction } from '@/shared/consts'
+import { Space_Grotesk } from 'next/font/google';
+import { Analytics, AnalyticsConfig } from 'pliny/analytics';
+import { SearchProvider, SearchConfig } from 'pliny/search';
+import { Header } from '@/shared/ui/components';
+import { SectionContainer } from '@/shared/ui/components';
+import { Footer } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import { ThemeProviders } from './theme-providers';
+import { Metadata } from 'next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics as AnalyticsVercel } from '@vercel/analytics/next';
+import { isProduction } from '@/shared/consts';
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-space-grotesk',
-})
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -59,10 +59,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
   },
-}
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const basePath = process.env.BASE_PATH || ''
+  const basePath = process.env.BASE_PATH || '';
 
   return (
     <html
@@ -117,5 +117,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </body>
     </html>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 // UI Components
-export { ThemeSwitch } from './ui/theme-switch'
+export { ThemeSwitch } from './ui/theme-switch';
 
 // Hooks
-export { useTheme } from './lib/use-theme'
+export { useTheme } from './lib/use-theme';

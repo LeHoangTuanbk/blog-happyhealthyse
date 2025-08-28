@@ -1,17 +1,17 @@
-export { Card } from './card'
-export { Comments } from './comments'
-export { Footer } from './footer'
-export { Header } from './header'
-export { Image } from './image'
-export { LayoutWrapper } from './layout-wrapper'
-export { Link } from './link'
-export { components as MDXComponents } from './mdx-components'
-export { MobileNav } from './mobile-nav'
-export { PageTitle } from './page-title'
-export { ScrollTopAndComment } from './scroll-top-and-comment'
-export { SearchButton } from './search-button'
-export { SectionContainer } from './section-container'
-export { TableWrapper } from './table-wrapper'
-export { Tag } from './tag'
-export { ThemeSwitch } from './theme-switch'
-export { SocialIcon } from './social-icons'
+export { Card } from './card';
+export { Comments } from './comments';
+export { Footer } from './footer';
+export { Header } from './header';
+export { Image } from './image';
+export { LayoutWrapper } from './layout-wrapper';
+export { Link } from './link';
+export { components as MDXComponents } from './mdx-components';
+export { MobileNav } from './mobile-nav';
+export { PageTitle } from './page-title';
+export { ScrollTopAndComment } from './scroll-top-and-comment';
+export { SearchButton } from './search-button';
+export { SectionContainer } from './section-container';
+export { TableWrapper } from './table-wrapper';
+export { Tag } from './tag';
+export { ThemeSwitch } from './theme-switch';
+export { SocialIcon } from './social-icons';

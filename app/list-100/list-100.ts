@@ -2,14 +2,14 @@ const MyThingStatus = {
   Done: '✓',
   InProgress: '~',
   NotDone: '✗',
-} as const
+} as const;
 
-type MyThingStatus = (typeof MyThingStatus)[keyof typeof MyThingStatus]
+type MyThingStatus = (typeof MyThingStatus)[keyof typeof MyThingStatus];
 
 type MyThing = {
-  title: string
-  status: MyThingStatus
-}
+  title: string;
+  status: MyThingStatus;
+};
 
 export const list100: MyThing[] = [
   {
@@ -39,6 +39,6 @@ export const list100: MyThing[] = [
   { title: 'Be kind and compassionate', status: MyThingStatus.InProgress },
   { title: 'Be a speaker at an international conference', status: MyThingStatus.NotDone },
   { title: 'Get hired by a FAANG or other top tech company', status: MyThingStatus.NotDone },
-]
+];
 
-export const updatedDateAt = new Date('2025-08-21')
+export const updatedDateAt = new Date('2025-08-21');

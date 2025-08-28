@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export const ScrollTopAndComment = () => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const handleWindowScroll = () => {
-      if (window.scrollY > 50) setShow(true)
-      else setShow(false)
-    }
+      if (window.scrollY > 50) setShow(true);
+      else setShow(false);
+    };
 
-    window.addEventListener('scroll', handleWindowScroll)
-    return () => window.removeEventListener('scroll', handleWindowScroll)
-  }, [])
+    window.addEventListener('scroll', handleWindowScroll);
+    return () => window.removeEventListener('scroll', handleWindowScroll);
+  }, []);
 
   const handleScrollTop = () => {
-    window.scrollTo({ top: 0 })
-  }
+    window.scrollTo({ top: 0 });
+  };
 
   return (
     <div
@@ -37,5 +37,5 @@ export const ScrollTopAndComment = () => {
         </svg>
       </button>
     </div>
-  )
-}
+  );
+};

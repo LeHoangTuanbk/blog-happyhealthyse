@@ -1,4 +1,4 @@
-import { Link } from '@/shared/ui/components'
+import { Link } from '@/shared/ui/components';
 
 export default function NotFound() {
   return (
@@ -21,5 +21,5 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

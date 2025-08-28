@@ -1,37 +1,37 @@
-import { ReactNode } from 'react'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog, Authors } from 'contentlayer/generated'
-import { Comments } from '@/shared/ui/components'
-import { Link } from '@/shared/ui/components'
-import { PageTitle } from '@/shared/ui/components'
-import { SectionContainer } from '@/shared/ui/components'
-import { Image } from '@/shared/ui/components'
-import { Tag } from '@/shared/ui/components'
-import siteMetadata from '@/shared/config/site'
-import { ScrollTopAndComment } from '@/shared/ui/components'
+import { ReactNode } from 'react';
+import { CoreContent } from 'pliny/utils/contentlayer';
+import type { Blog, Authors } from 'contentlayer/generated';
+import { Comments } from '@/shared/ui/components';
+import { Link } from '@/shared/ui/components';
+import { PageTitle } from '@/shared/ui/components';
+import { SectionContainer } from '@/shared/ui/components';
+import { Image } from '@/shared/ui/components';
+import { Tag } from '@/shared/ui/components';
+import siteMetadata from '@/shared/config/site';
+import { ScrollTopAndComment } from '@/shared/ui/components';
 
-const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
+const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`;
 const discussUrl = (path) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
+  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`;
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-}
+};
 
 interface LayoutProps {
-  content: CoreContent<Blog>
-  authorDetails: CoreContent<Authors>[]
-  next?: { path: string; title: string }
-  prev?: { path: string; title: string }
-  children: ReactNode
+  content: CoreContent<Blog>;
+  authorDetails: CoreContent<Authors>[];
+  next?: { path: string; title: string };
+  prev?: { path: string; title: string };
+  children: ReactNode;
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags } = content
-  const basePath = path.split('/')[0]
+  const { filePath, path, slug, date, title, tags } = content;
+  const basePath = path.split('/')[0];
 
   return (
     <SectionContainer>
@@ -167,5 +167,5 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }

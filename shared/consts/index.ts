@@ -1,1 +1,1 @@
-export { isProduction } from './environment'
+export { isProduction } from './environment';

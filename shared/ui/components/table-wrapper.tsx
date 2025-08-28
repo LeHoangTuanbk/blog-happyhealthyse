@@ -3,5 +3,5 @@ export const TableWrapper = ({ children }) => {
     <div className="w-full overflow-x-auto">
       <table>{children}</table>
     </div>
-  )
-}
+  );
+};

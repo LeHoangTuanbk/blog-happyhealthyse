@@ -1,10 +1,10 @@
-import TOCInline from 'pliny/ui/TOCInline'
-import Pre from 'pliny/ui/Pre'
-import BlogNewsletterForm from 'pliny/ui/BlogNewsletterForm'
-import type { MDXComponents } from 'mdx/types'
-import { Image } from './image'
-import { Link as CustomLink } from './link'
-import { TableWrapper } from './table-wrapper'
+import TOCInline from 'pliny/ui/TOCInline';
+import Pre from 'pliny/ui/Pre';
+import BlogNewsletterForm from 'pliny/ui/BlogNewsletterForm';
+import type { MDXComponents } from 'mdx/types';
+import { Image } from './image';
+import { Link as CustomLink } from './link';
+import { TableWrapper } from './table-wrapper';
 
 export const components: MDXComponents = {
   Image,
@@ -13,4 +13,4 @@ export const components: MDXComponents = {
   pre: Pre,
   table: TableWrapper,
   BlogNewsletterForm,
-}
+};

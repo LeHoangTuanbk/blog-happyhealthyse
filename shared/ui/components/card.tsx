@@ -1,12 +1,12 @@
-import { Image } from './image'
-import { Link } from './link'
+import { Image } from './image';
+import { Link } from './link';
 
 type CardProps = {
-  title: string
-  description: string
-  imgSrc?: string
-  href?: string
-}
+  title: string;
+  description: string;
+  imgSrc?: string;
+  href?: string;
+};
 
 export const Card = ({ title, description, imgSrc, href }: CardProps) => (
   <div className="md max-w-[544px] p-4 md:w-1/2">
@@ -58,4 +58,4 @@ export const Card = ({ title, description, imgSrc, href }: CardProps) => (
       </div>
     </div>
   </div>
-)
+);

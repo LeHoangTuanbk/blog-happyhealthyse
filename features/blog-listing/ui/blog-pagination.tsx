@@ -1,12 +1,12 @@
-import { Link } from '@/shared/ui/components'
-import { usePagination } from '../lib/use-pagination'
-import type { PaginationProps } from '@/entities/blog'
+import { Link } from '@/shared/ui/components';
+import { usePagination } from '../lib/use-pagination';
+import type { PaginationProps } from '@/entities/blog';
 
 export const BlogPagination = ({ totalPages, currentPage }: PaginationProps) => {
   const { prevPage, nextPage, getPrevPageUrl, getNextPageUrl } = usePagination({
     totalPages,
-    currentPage
-  })
+    currentPage,
+  });
 
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
@@ -36,5 +36,5 @@ export const BlogPagination = ({ totalPages, currentPage }: PaginationProps) => 
         )}
       </nav>
     </div>
-  )
-}
+  );
+};

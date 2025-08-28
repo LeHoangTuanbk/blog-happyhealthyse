@@ -1,15 +1,15 @@
-import { ReactNode } from 'react'
-import type { Authors } from 'contentlayer/generated'
-import { SocialIcon } from '@/shared/ui/components'
-import { Image } from '@/shared/ui/components'
+import { ReactNode } from 'react';
+import type { Authors } from 'contentlayer/generated';
+import { SocialIcon } from '@/shared/ui/components';
+import { Image } from '@/shared/ui/components';
 
 type Props = {
-  children: ReactNode
-  content: Omit<Authors, '_id' | '_raw' | 'body'>
-}
+  children: ReactNode;
+  content: Omit<Authors, '_id' | '_raw' | 'body'>;
+};
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, occupation, company, linkedin } = content
+  const { name, avatar, occupation, company, linkedin } = content;
 
   return (
     <>
@@ -43,5 +43,5 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
       </div>
     </>
-  )
+  );
 }

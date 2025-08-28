@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { AlgoliaButton } from 'pliny/search/AlgoliaButton'
-import { KBarButton } from 'pliny/search/KBarButton'
-import { useSearch } from '../lib/use-search'
+import { AlgoliaButton } from 'pliny/search/AlgoliaButton';
+import { KBarButton } from 'pliny/search/KBarButton';
+import { useSearch } from '../lib/use-search';
 
 export const SearchButton = () => {
-  const { isSearchEnabled, searchProvider } = useSearch()
+  const { isSearchEnabled, searchProvider } = useSearch();
 
   if (!isSearchEnabled) {
-    return null
+    return null;
   }
 
-  const SearchButtonWrapper = searchProvider === 'algolia' ? AlgoliaButton : KBarButton
+  const SearchButtonWrapper = searchProvider === 'algolia' ? AlgoliaButton : KBarButton;
 
   return (
     <SearchButtonWrapper aria-label="Search">
@@ -30,5 +30,5 @@ export const SearchButton = () => {
         />
       </svg>
     </SearchButtonWrapper>
-  )
-}
+  );
+};

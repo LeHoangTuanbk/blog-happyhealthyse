@@ -2,11 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-'use client'
+'use client';
 
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
-type Props = {}
+type Props = {};
 
 export const ConfettiCannon = forwardRef<HTMLDivElement, Props>((_props, ref) => {
   return (
@@ -185,7 +185,7 @@ export const ConfettiCannon = forwardRef<HTMLDivElement, Props>((_props, ref) =>
         </div>
       </section>
     </div>
-  )
-})
+  );
+});
 
-ConfettiCannon.displayName = 'ConfettiCannon'
+ConfettiCannon.displayName = 'ConfettiCannon';
