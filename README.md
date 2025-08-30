@@ -6,21 +6,20 @@
 
 ## 🛡️ Tech Stack
 
-| **Category**        | **Technology**      |
-| ------------------- | ------------------- |
-| **Framework**       | Next.js             |
-| **Language**        | TypeScript          |
-| **Styling**         | Tailwind CSS        |
-| **Content**         | MDX + Contentlayer2 |
-| **Deployment**      | Vercel              |
-| **Package Manager** | Yarn                |
+| **Category**                 | **Technology**      |
+| ---------------------------- | ------------------- |
+| **Framework**                | Next.js             |
+| **Language**                 | TypeScript          |
+| **Styling**                  | Tailwind CSS        |
+| **Animation**                | Gsap                |
+| **Content**                  | MDX + Contentlayer2 |
+| **Analytics and Monitoring** | Vercel              |
 
 ## ✨ Key Features
 
 - **Scalable Architecture**: Feature-Sliced Design
-- **Enhanced Search**: Custom KBar
-- **Performance Optimized**: Lighthouse-optimized, ~85kB bundle
-- **SEO Ready**: Meta tags, sitemap, structured data
+- **Performance Optimized**: All the page insight scores are nearly [perfect score](https://pagespeed.web.dev/analysis/https-blog-healthyhappyse-com/x6vt9bv8m4?form_factor=desktop)
+- **SEO Ready**: Meta tags, sitemap
 
 ## 🚀 Quick Start
 

@@ -1,5 +1,6 @@
 import { slug } from 'github-slugger';
 import siteMetadata from '@/shared/config/site';
+import type { BlogPost } from '../model/types';
 
 export const formatBlogDate = (date: string): string => {
   return new Date(date).toLocaleDateString(siteMetadata.locale, {
@@ -18,14 +19,7 @@ export const getBlogEditUrl = (filePath: string): string => {
   return `${siteMetadata.siteRepo}/blob/main/shared/content/${filePath}`;
 };
 
-export const getBlogDiscussUrl = (path: string): string => {
-  return `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `${siteMetadata.siteUrl}/${path}`,
-  )}`;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const filterPostsBySearch = (posts: any[], searchValue: string) => {
+export const filterPostsBySearch = (posts: BlogPost[], searchValue: string) => {
   if (!searchValue) return posts;
 
   return posts.filter((post) => {

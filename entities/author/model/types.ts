@@ -4,7 +4,7 @@ import type { CoreContent } from 'pliny/utils/contentlayer';
 export type Author = ContentlayerAuthor;
 export type AuthorData = CoreContent<Author>;
 
-export interface AuthorProfile {
+export type AuthorProfile = {
   name: string;
   avatar?: string;
   occupation?: string;
@@ -14,9 +14,9 @@ export interface AuthorProfile {
   bluesky?: string;
   linkedin?: string;
   github?: string;
-}
+};
 
-export interface AuthorLayoutProps {
+export type AuthorLayoutProps = {
   children: React.ReactNode;
   content: AuthorData;
-}
+};

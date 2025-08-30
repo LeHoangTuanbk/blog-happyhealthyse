@@ -1,7 +1,6 @@
 import '@/shared/ui/styles/prism.css';
 import 'katex/dist/katex.css';
 
-import { PageTitle } from '@/shared/ui/components';
 import { MDXComponents } from '@/shared/ui/components';
 import { MDXLayoutRenderer } from 'pliny/mdx-components';
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer';
