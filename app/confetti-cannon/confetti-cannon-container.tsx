@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useRef } from 'react';
@@ -15,8 +14,15 @@ import { createConfettiExplosion } from './utils/confetti-explosion';
 import { ConfettiDrawingManager } from './utils/confetti-drawing';
 import { HandCursorManager } from './utils/hand-cursor';
 
-// Register GSAP plugins once
 gsap.registerPlugin(Observer, ScrollTrigger, CustomEase, CustomWiggle, Physics2DPlugin, useGSAP);
+
+type ObserverEvent = {
+  x?: number;
+  y?: number;
+  clientX?: number;
+  clientY?: number;
+  touches?: TouchList;
+};
 
 export const ConfettiCannonContainer = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,7 +33,6 @@ export const ConfettiCannonContainer = () => {
 
       const container = containerRef.current;
 
-      // Get DOM elements
       const elements = {
         hand: container.querySelector('.confetti-hero__hand') as HTMLElement,
         instructions: container.querySelector('.confetti-hero__hand small') as HTMLElement,
@@ -38,34 +43,27 @@ export const ConfettiCannonContainer = () => {
         proxy: container.querySelector('.confetti-hero__proxy') as HTMLElement,
       };
 
-      // Load images
       const { imageMap, imageKeys, explosionMap, explosionKeys } = loadConfettiImages(container);
 
-      // Setup animation helpers
       const animationIsOk = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
       CustomWiggle.create('myWiggle', { wiggles: 6 });
       const clamper = gsap.utils.clamp(1, 100);
 
-      // Create managers
       const drawingManager = new ConfettiDrawingManager(imageMap, imageKeys, elements, clamper);
       const cursorManager = new HandCursorManager(container, elements.hand);
 
-      // Initialize cursor
       cursorManager.init();
 
-      // Create explosion helper
       const createExplosion = (x: number, y: number, distance: number) => {
         createConfettiExplosion({ container, explosionMap, explosionKeys }, x, y, distance);
       };
 
-      // Handle drawing end animation
       const handleClearDrawing = () => {
         const result = drawingManager.clearDrawing();
         if (!result) return;
 
         createExplosion(result.x, result.y, result.distance);
 
-        // Animate rock hand
         gsap.set(elements.drag, { opacity: 0 });
         gsap.set(elements.handle, { opacity: 0 });
         gsap.set(elements.rock, { opacity: 1 });
@@ -84,23 +82,21 @@ export const ConfettiCannonContainer = () => {
         });
       };
 
-      // Setup mouse events
       const cleanupMouse = cursorManager.setupMouseEvents();
 
-      // Setup drag observer
       if (animationIsOk) {
         Observer.create({
           target: elements.proxy,
           type: 'touch,pointer',
-          onPress: (e: any) => {
-            const x = e.x || e.clientX;
-            const y = e.y || e.clientY;
+          onPress: (e: ObserverEvent) => {
+            const x = e.x || e.clientX || e.touches?.[0]?.clientX || 0;
+            const y = e.y || e.clientY || e.touches?.[0]?.clientY || 0;
             cursorManager.showOnTouch(x, y);
             drawingManager.startDrawing(e);
           },
-          onDrag: (e: any) => {
-            const x = e.x || e.clientX;
-            const y = e.y || e.clientY;
+          onDrag: (e: ObserverEvent) => {
+            const x = e.x || e.clientX || e.touches?.[0]?.clientX || 0;
+            const y = e.y || e.clientY || e.touches?.[0]?.clientY || 0;
             cursorManager.updateOnTouch(x, y);
             drawingManager.updateDrawing(e);
           },
@@ -115,7 +111,6 @@ export const ConfettiCannonContainer = () => {
         });
       }
 
-      // Initial explosions for fun
       gsap.delayedCall(0.5, () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
@@ -127,9 +122,11 @@ export const ConfettiCannonContainer = () => {
         gsap.delayedCall(0.2, () => {
           createExplosion(centerX - 80, centerY + 30, 350);
         });
+        gsap.delayedCall(0.3, () => {
+          createExplosion(centerX - 80, centerY - 30, 350);
+        });
       });
 
-      // Cleanup
       return () => {
         cleanupMouse?.();
         Observer.getAll().forEach((observer) => observer.kill());

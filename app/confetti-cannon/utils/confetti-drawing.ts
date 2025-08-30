@@ -38,7 +38,6 @@ export class ConfettiDrawingManager {
     this.startX = e.x || e.clientX;
     this.startY = e.y || e.clientY;
 
-    // Create line
     this.currentLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     this.currentLine.setAttribute('x1', this.startX.toString());
     this.currentLine.setAttribute('y1', this.startY.toString());
@@ -48,14 +47,12 @@ export class ConfettiDrawingManager {
     this.currentLine.setAttribute('stroke-width', '2');
     this.currentLine.setAttribute('stroke-dasharray', '4');
 
-    // Create circle
     this.circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     this.circle.setAttribute('cx', this.startX.toString());
     this.circle.setAttribute('cy', this.startY.toString());
     this.circle.setAttribute('r', '30');
     this.circle.setAttribute('fill', '#0e100f');
 
-    // Create image at start point
     const randomKey = gsap.utils.random(this.imageKeys);
     const original = this.imageMap[randomKey];
     const clone = document.createElementNS('http://www.w3.org/2000/svg', 'image');
@@ -68,14 +65,12 @@ export class ConfettiDrawingManager {
 
     this.startImage = clone;
 
-    // Add to canvas
     if (this.elements.canvas) {
       this.elements.canvas.appendChild(this.currentLine);
       this.elements.canvas.appendChild(this.circle);
       this.elements.canvas.appendChild(this.startImage);
     }
 
-    // Update UI
     gsap.set(this.elements.drag, { opacity: 1 });
     gsap.set(this.elements.handle, { opacity: 1 });
     gsap.set(this.elements.rock, { opacity: 0 });
