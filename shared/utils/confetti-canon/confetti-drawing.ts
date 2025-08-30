@@ -1,6 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import gsap from 'gsap';
+
+type ObserverEvent = {
+  x?: number;
+  y?: number;
+  clientX?: number;
+  clientY?: number;
+  touches?: TouchList;
+};
 
 type DrawingElements = {
   canvas: SVGSVGElement | null;
@@ -27,7 +33,7 @@ export class ConfettiDrawingManager {
     private clamper: (value: number) => number,
   ) {}
 
-  startDrawing(e: any) {
+  startDrawing(e: ObserverEvent) {
     this.isDrawing = true;
     this.lastDistance = 0;
 
@@ -35,8 +41,8 @@ export class ConfettiDrawingManager {
       gsap.set(this.elements.instructions, { opacity: 0 });
     }
 
-    this.startX = e.x || e.clientX;
-    this.startY = e.y || e.clientY;
+    this.startX = e.x || e.clientX || e.touches?.[0]?.clientX || 0;
+    this.startY = e.y || e.clientY || e.touches?.[0]?.clientY || 0;
 
     this.currentLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     this.currentLine.setAttribute('x1', this.startX.toString());
@@ -76,11 +82,11 @@ export class ConfettiDrawingManager {
     gsap.set(this.elements.rock, { opacity: 0 });
   }
 
-  updateDrawing(e: any) {
+  updateDrawing(e: ObserverEvent) {
     if (!this.currentLine || !this.startImage) return;
 
-    const cursorX = e.x || e.clientX;
-    const cursorY = e.y || e.clientY;
+    const cursorX = e.x || e.clientX || e.touches?.[0]?.clientX || 0;
+    const cursorY = e.y || e.clientY || e.touches?.[0]?.clientY || 0;
 
     const dx = cursorX - this.startX;
     const dy = cursorY - this.startY;
@@ -98,14 +104,12 @@ export class ConfettiDrawingManager {
 
     const angle = Math.atan2(dy, dx) * (180 / Math.PI);
 
-    // Update line
     gsap.to(this.currentLine, {
       attr: { x2, y2 },
       duration: 0.1,
       ease: 'none',
     });
 
-    // Scale elements
     const raw = distance / 100;
     const eased = Math.pow(raw, 0.5);
     const clamped = this.clamper(eased);
@@ -116,7 +120,6 @@ export class ConfettiDrawingManager {
       transformOrigin: 'center center',
     });
 
-    // Rotate hand
     if (this.elements.hand) {
       gsap.to(this.elements.hand, {
         rotation: `${angle + -90}_short`,
@@ -132,7 +135,6 @@ export class ConfettiDrawingManager {
   clearDrawing() {
     if (!this.isDrawing) return null;
 
-    // Clear canvas
     if (this.elements.canvas) {
       this.elements.canvas.innerHTML = '';
     }

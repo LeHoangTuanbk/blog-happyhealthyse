@@ -9,10 +9,10 @@ import { CustomEase } from 'gsap/CustomEase';
 import { CustomWiggle } from 'gsap/CustomWiggle';
 import { Physics2DPlugin } from 'gsap/Physics2DPlugin';
 import { ConfettiCannon } from './confetti-cannon';
-import { loadConfettiImages } from './utils/confetti-images';
-import { createConfettiExplosion } from './utils/confetti-explosion';
-import { ConfettiDrawingManager } from './utils/confetti-drawing';
-import { HandCursorManager } from './utils/hand-cursor';
+import { loadConfettiImages } from '@/shared/utils/confetti-canon/';
+import { createConfettiExplosion } from '@/shared/utils/confetti-canon/';
+import { ConfettiDrawingManager } from '@/shared/utils/confetti-canon/';
+import { HandCursorManager } from '@/shared/utils/confetti-canon/';
 
 gsap.registerPlugin(Observer, ScrollTrigger, CustomEase, CustomWiggle, Physics2DPlugin, useGSAP);
 
