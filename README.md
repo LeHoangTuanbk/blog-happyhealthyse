@@ -33,8 +33,8 @@ yarn dev
 
 ## Todos
 
-- [x] Add projects
-- [x] Add more games in fun zone
+- [ ] Add projects
+- [ ] Add more games in fun zone
 
 ## 📞 Contact
 
