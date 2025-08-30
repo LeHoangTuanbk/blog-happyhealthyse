@@ -31,6 +31,11 @@ yarn install
 yarn dev
 ```
 
+## Todos
+
+- [x] Add projects
+- [x] Add more games in fun zone
+
 ## 📞 Contact
 
 - **LinkedIn**: [le-hoang-tuan-bk](https://www.linkedin.com/in/le-hoang-tuan-bk/)
