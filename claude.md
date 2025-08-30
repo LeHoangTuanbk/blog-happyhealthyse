@@ -9,27 +9,42 @@ This file provides guidance for using Claude Code (claude.ai/code) within this r
 ```
 ├── app/                    # Next.js App Router
 │   ├── layout.tsx         # Root layout with metadata
-│   ├── page.tsx           # Homepage (uses Main.tsx)
-│   ├── Main.tsx           # Homepage component
+│   ├── page.tsx           # Homepage
+│   ├── main.tsx           # Homepage component
+│   ├── theme-providers.tsx # Theme provider component
+│   ├── seo.tsx            # SEO component
 │   ├── blog/              # Blog listing and individual posts
 │   ├── about/             # About page
 │   ├── projects/          # Projects showcase
-│   └── tags/              # Tag-based filtering
-├── components/            # Reusable React components
-│   ├── Header.tsx         # Navigation header
-│   ├── Footer.tsx         # Site footer
-│   ├── ThemeSwitch.tsx    # Dark/light mode toggle
-│   └── ...
-├── layouts/               # Blog post layout templates
-│   ├── PostLayout.tsx     # Full post layout with sidebar
-│   ├── PostSimple.tsx     # Simple post layout
-│   └── ListLayoutWithTags.tsx # Blog listing with tag sidebar
-├── data/                  # Content and configuration
-│   ├── blog/             # Blog posts (MDX files)
-│   ├── authors/          # Author information (MDX)
-│   ├── siteMetadata.js   # Site configuration
-│   └── headerNavLinks.ts # Navigation links
-├── css/                  # Stylesheets
+│   ├── tags/              # Tag-based filtering
+│   ├── list-100/          # List 100 items feature
+│   └── fun-zone/          # Fun zone page
+├── shared/                # Shared resources (FSD pattern)
+│   ├── ui/
+│   │   ├── components/    # Reusable React components
+│   │   ├── layouts/       # Blog post layout templates
+│   │   └── styles/        # Stylesheets
+│   ├── content/           # Content and configuration
+│   │   ├── blog/         # Blog posts (MDX files)
+│   │   └── author/       # Author information (MDX)
+│   ├── config/           # Configuration files
+│   │   ├── site-metadata.ts # Site configuration
+│   │   └── header-nav-links.ts # Navigation links
+│   ├── consts/           # Constants
+│   ├── utils/            # Utility functions
+│   └── assets/           # Static assets
+├── documents/             # Documentation
+│   └── development/
+│       └── coding-convention/ # Coding conventions
+│           ├── main.md
+│           ├── file-name.md
+│           ├── frontend-component.md
+│           ├── frontend-container-presentational.md
+│           ├── frontend-error-handling.md
+│           ├── frontend-fetch-data.md
+│           ├── frontend-form.md
+│           ├── frontend-props.md
+│           └── no-any.md
 ├── public/static/        # Static assets (images, favicons)
 └── contentlayer.config.ts # Content processing config
 ```
@@ -74,21 +89,28 @@ This process helps continuously improve project rules.
 - **Framework**: Next.js 15.2.4 with App Router
 - **Styling**: Tailwind CSS 4.0.5
 - **Content**: MDX with Contentlayer2
-- **Language**: TypeScript
-- **Package Manager**: Yarn
+- **Language**: TypeScript 5.9.2
+- **Package Manager**: Yarn 3.6.1
+- **Animations**: GSAP 3.13.0
+- **Theme**: next-themes 0.4.6
+- **Analytics**: Vercel Analytics & Speed Insights
+- **Linting**: ESLint 9.14.0 with Prettier
+- **Git Hooks**: Husky with lint-staged
 
 ### Key Development Commands
 
-- `yarn dev` - Start development server
+- `yarn dev` or `yarn start` - Start development server
 - `yarn build` - Build for production
-- `yarn start` - Start production server
+- `yarn serve` - Start production server
 - `yarn lint` - Run ESLint with auto-fix
+- `yarn ts-check` - Type checking with TypeScript
+- `yarn analyze` - Analyze bundle size
 
 ### Content Management
 
 #### Blog Posts
 
-- Location: `data/blog/*.mdx`
+- Location: `shared/content/blog/*.mdx`
 - Format: MDX (Markdown + JSX)
 - Frontmatter fields:
   ```yaml
@@ -105,12 +127,12 @@ This process helps continuously improve project rules.
 
 #### Authors
 
-- Location: `data/authors/*.mdx`
-- Default author: `data/authors/default.mdx`
+- Location: `shared/content/author/*.mdx`
+- Default author: `shared/content/author/default.mdx`
 
 ### Configuration Files
 
-#### Site Metadata (`data/siteMetadata.js`)
+#### Site Metadata (`shared/config/site-metadata.ts`)
 
 - Site title, description, URL
 - Social media links
@@ -165,10 +187,55 @@ EXPORT=1 UNOPTIMIZED=1 yarn build
 
 #### Environment Variables
 
-- `NEXT_UMAMI_ID` - Umami analytics ID
-- `NEXT_PUBLIC_GISCUS_*` - Giscus comments config
 - See `siteMetadata.js` for full list
 
-## Coding convention
+## Coding Conventions
 
-- My coding convention are written in documents/development/coding-convention/\* . You need to access to those files before you give me code
+### Main Conventions
+
+Coding conventions are documented in `documents/development/coding-convention/*`. You MUST read these files before writing code:
+
+#### Core Principles (from main.md)
+
+- Generate code considering SOLID principles
+- Apply Clean Architecture and DDD for backend
+- Always refer to existing code design and conventions
+- Avoid using `any` type in TypeScript
+- Avoid Type Assertion as much as possible
+- Split long functions into appropriate granular functions
+- Apply best practices from "Clean Code"
+- Add JSDoc comments for functions
+
+#### Container/Presentational Pattern (from frontend-container-presentational.md)
+
+- **Container Components**: Handle business logic and state management
+  - File name: `feature-name-container.tsx`
+  - Component name: `FeatureNameContainer`
+  - Can use both Container and Presentational components
+  - Business logic should ONLY be written in Container
+
+- **Presentational Components**: Handle UI only
+  - File name: `feature-name.tsx`
+  - Component name: `FeatureName`
+  - Can only use other Presentational components
+  - UI-related logic (modals, formatting) stays in Presentational
+  - Use slots to pass Container components when needed
+
+- **Page Components**: Add `page` to component name
+  - File name: `login-page.tsx`
+  - Component name: `LoginPage`
+
+- **Guard Components**: Handle routing and navigation checks
+  - File name: `feature-page-guard.tsx`
+  - Component name: `FeaturePageGuard`
+
+#### File Naming (from file-name.md)
+
+- Use **kebab-case** for all files and directories
+- Examples: `user-profile.tsx`, `api-handler.ts`
+
+#### Important Notes
+
+- You MUST access the convention files in `documents/development/coding-convention/*` before writing code
+- Follow the existing patterns in the codebase
+- Maintain consistency with project standards

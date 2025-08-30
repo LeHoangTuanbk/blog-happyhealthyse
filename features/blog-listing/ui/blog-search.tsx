@@ -1,8 +1,8 @@
-interface BlogSearchProps {
+type BlogSearchProps = {
   searchValue: string;
   onSearchChange: (value: string) => void;
   placeholder?: string;
-}
+};
 
 export const BlogSearch = ({
   searchValue,

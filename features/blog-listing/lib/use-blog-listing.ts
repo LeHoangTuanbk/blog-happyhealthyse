@@ -14,7 +14,6 @@ export const useBlogListing = ({ posts, initialDisplayPosts = [] }: UseBlogListi
 
   const filteredPosts = filterPostsBySearch(posts, searchValue);
 
-  // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts =
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredPosts;
 

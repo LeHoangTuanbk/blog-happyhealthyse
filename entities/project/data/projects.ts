@@ -5,6 +5,7 @@ type Project = {
   imgSrc?: string;
 };
 
+// TODO: Add projects later
 const projectsData: Project[] = [
   {
     title: 'Sample Project 1',

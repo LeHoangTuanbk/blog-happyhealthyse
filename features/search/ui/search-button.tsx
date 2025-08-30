@@ -11,6 +11,7 @@ export const SearchButton = () => {
     return null;
   }
 
+  // TODO: searchProvider WIP
   const SearchButtonWrapper = searchProvider === 'algolia' ? AlgoliaButton : KBarButton;
 
   return (

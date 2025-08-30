@@ -1,11 +1,8 @@
-'use client';
-
 import { usePathname } from 'next/navigation';
 import type { PaginationProps } from '@/entities/blog';
 
 export const usePagination = ({ totalPages, currentPage }: PaginationProps) => {
   const pathname = usePathname();
-  const segments = pathname.split('/');
 
   const basePath = pathname
     .replace(/^\//, '') // Remove leading slash
