@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export class HandCursorManager {
-  private xSetter?: any;
-  private ySetter?: any;
+  private xSetter?: gsap.QuickToFunc;
+  private ySetter?: gsap.QuickToFunc;
 
   constructor(
     private container: HTMLElement,
@@ -15,10 +13,8 @@ export class HandCursorManager {
   init() {
     if (!this.hand) return;
 
-    // Set initial position
     gsap.set(this.hand, { xPercent: -50, yPercent: -50 });
 
-    // Create position setters
     this.xSetter = gsap.quickTo(this.hand, 'x', { duration: 0.1 });
     this.ySetter = gsap.quickTo(this.hand, 'y', { duration: 0.1 });
   }
@@ -47,7 +43,6 @@ export class HandCursorManager {
     this.container.addEventListener('mouseleave', handleMouseLeave);
     this.container.addEventListener('mousemove', handleMouseMove);
 
-    // Return cleanup function
     return () => {
       this.container.removeEventListener('mouseenter', handleMouseEnter);
       this.container.removeEventListener('mouseleave', handleMouseLeave);

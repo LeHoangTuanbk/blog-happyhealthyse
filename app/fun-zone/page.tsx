@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ConfettiCannonContainer } from './confetti-cannon-container';
+import { ConfettiCannonContainer } from '@/features/confetti-canon/ui/confetti-cannon-container';
 
 export const metadata: Metadata = {
   title: 'Confetti Cannon Game',
