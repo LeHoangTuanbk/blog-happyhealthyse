@@ -7,7 +7,6 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
   reloadOnOnline: false,
   cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
   runtimeCaching: [
     {
       urlPattern: /^https?.*\.(png|jpg|jpeg|webp|svg|gif|ico)$/,
