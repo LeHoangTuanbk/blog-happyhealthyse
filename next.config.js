@@ -45,7 +45,7 @@ const withPWA = require('next-pwa')({
     },
   ],
   fallbacks: {
-    document: '/_offline',
+    document: '/offline',
   },
 });
 
