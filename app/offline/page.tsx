@@ -1,4 +1,8 @@
-'use client';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Offline',
+};
 
 export default function OfflinePage() {
   return (
@@ -7,7 +11,11 @@ export default function OfflinePage() {
         <h1 className="mb-4 text-4xl font-bold">You're offline</h1>
         <p className="mb-4 text-gray-600">Please check your internet connection and try again.</p>
         <button
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.reload();
+            }
+          }}
           className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
         >
           Try again
