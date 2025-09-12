@@ -19,6 +19,7 @@
 
 - **Scalable Architecture**: Feature-Sliced Design
 - **Performance Optimized**: All the page insight scores are nearly [perfect score](https://pagespeed.web.dev/analysis/https-blog-healthyhappyse-com/x6vt9bv8m4?form_factor=desktop)
+- **PWA Support**: Installable app with offline support
 - **SEO Ready**: Meta tags, sitemap
 
 ## 🚀 Quick Start
