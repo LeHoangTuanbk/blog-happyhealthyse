@@ -7,12 +7,36 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
   runtimeCaching: [
     {
+      urlPattern: /^https?.*\.(png|jpg|jpeg|webp|svg|gif|ico)$/,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'image-cache',
+        expiration: {
+          maxEntries: 60,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+      },
+    },
+    {
+      urlPattern: /^https?.*\.(js|css)$/,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-cache',
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+      },
+    },
+    {
       urlPattern: /^https?.*/,
       handler: 'NetworkFirst',
       options: {
-        cacheName: 'offlineCache',
+        cacheName: 'page-cache',
+        networkTimeoutSeconds: 3,
         expiration: {
-          maxEntries: 200,
+          maxEntries: 50,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
         },
       },
     },

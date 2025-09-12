@@ -8,6 +8,7 @@ import { SearchProvider, SearchConfig } from 'pliny/search';
 import { Header } from '@/shared/ui/components';
 import { SectionContainer } from '@/shared/ui/components';
 import { Footer } from '@/shared/ui/components';
+import PWANavigation from '@/shared/ui/components/pwa-navigation';
 import siteMetadata from '@/shared/config/site';
 import { ThemeProviders } from './theme-providers';
 import { Metadata } from 'next';
@@ -107,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <main className="mb-auto">{children}</main>
             </SearchProvider>
             <Footer />
+            <PWANavigation />
           </SectionContainer>
         </ThemeProviders>
         {isProduction && (
