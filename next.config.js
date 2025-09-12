@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { withContentlayer } = require('next-contentlayer2');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+});
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -63,7 +69,7 @@ const unoptimized = process.env.UNOPTIMIZED ? true : undefined;
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
 module.exports = () => {
-  const plugins = [withContentlayer, withBundleAnalyzer];
+  const plugins = [withContentlayer, withBundleAnalyzer, withPWA];
   return plugins.reduce((acc, next) => next(acc), {
     output,
     basePath,
