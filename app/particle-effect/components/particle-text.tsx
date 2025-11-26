@@ -115,6 +115,28 @@ export function ParticleText({ imageSrc, particleCount = 25000 }: ParticleTextPr
       const originalPositions = positions.slice();
       const velocities = new Float32Array(actualParticleCount * 3);
 
+      // Intro animation: scatter particles very slightly from original position
+      const scatteredPositions = new Float32Array(actualParticleCount * 3);
+      for (let k = 0; k < actualParticleCount; k++) {
+        const ox = originalPositions[k * 3];
+        const oy = originalPositions[k * 3 + 1];
+        const oz = originalPositions[k * 3 + 2];
+
+        // Very small random offset from original position
+        const offsetX = (Math.random() - 0.5) * 0.4;
+        const offsetY = (Math.random() - 0.5) * 0.4;
+        const offsetZ = (Math.random() - 0.5) * 0.1;
+
+        scatteredPositions[k * 3] = ox + offsetX;
+        scatteredPositions[k * 3 + 1] = oy + offsetY;
+        scatteredPositions[k * 3 + 2] = oz + offsetZ;
+      }
+
+      // Copy scattered positions to initial positions
+      for (let k = 0; k < scatteredPositions.length; k++) {
+        positions[k] = scatteredPositions[k];
+      }
+
       // Setup Three.js scene
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);

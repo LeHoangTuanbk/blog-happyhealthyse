@@ -1,7 +1,12 @@
 'use client';
 
-import { ParticleScene } from './components';
+import { ParticleScene, ConfettiRain } from './components';
 
 export default function ParticleEffectPage() {
-  return <ParticleScene imageSrc="/static/images/hapins.png" particleCount={40000} />;
+  return (
+    <>
+      <ConfettiRain count={80} duration={5} />
+      <ParticleScene imageSrc="/static/images/hapins.png" particleCount={40000} />
+    </>
+  );
 }
